@@ -1,0 +1,38 @@
+{
+  "name": "portfolio-final",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@babylonjs/core": "^7.7.2",
+    "@babylonjs/gui": "^7.8.0",
+    "@babylonjs/inspector": "^7.8.0",
+    "@babylonjs/loaders": "^7.7.2",
+    "@babylonjs/materials": "^7.7.1",
+    "@babylonjs/procedural-textures": "^7.7.2",
+    "babylonjs": "^7.7.2",
+    "babylonjs-gui": "^7.7.2",
+    "babylonjs-loaders": "^7.7.2",
+    "babylonjs-materials": "^7.7.2",
+    "dat.gui": "^0.7.9",
+    "earcut": "^2.2.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "vite": "^5.2.0"
+  }
+}
