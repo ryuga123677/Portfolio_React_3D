@@ -4,6 +4,7 @@ import "@babylonjs/loaders";
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/inspector";
 //import "@babylonjs/gui";
+import myIntroVideo from "../assets/video/myintro.mp4";
 import earcut from "earcut";
 import { AdvancedDynamicTexture, Button, Control } from "@babylonjs/gui";
 window.earcut = earcut;
@@ -611,7 +612,7 @@ const Portfolio = () => {
           var ANote0VideoMat = new BABYLON.StandardMaterial("m", scene);
           var ANote0VideoVidTex = new BABYLON.VideoTexture(
             "vidtex",
-            "../src/components/myintro.mp4",
+            myIntroVideo,
             scene,
           
           );
