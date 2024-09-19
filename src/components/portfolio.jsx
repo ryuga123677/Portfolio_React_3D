@@ -80,6 +80,7 @@ const Portfolio = () => {
     );
     camera.attachControl(canvas, true);
     camera.radius = 5;
+    
     var check = false;
     let lampon = false;
     const lamp = new BABYLON.PointLight(
@@ -89,7 +90,7 @@ const Portfolio = () => {
     );
     lamp.diffuse = new BABYLON.Color3(1, 1, 0);
     lamp.intensity = 0;
-
+createInformationbar();
     const planeOpts = {
       height: 2.5,
       width: 4.1,
@@ -103,7 +104,7 @@ const Portfolio = () => {
     const vidPos = new BABYLON.Vector3(-12.32, 8.61, -26.06);
     ANote0Video.position = vidPos;
     ANote0Video.rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
-
+   
     BABYLON.SceneLoader.ImportMeshAsync(
       null,
       "./models/",
@@ -794,7 +795,34 @@ const Portfolio = () => {
        Control.VERTICAL_ALIGNMENT_CENTER;
       guiCanvas.addControl(guiButton);
     }
-
+    function createInformationbar( secname = "*Tips*\n\n 1-Click on Lamp, Projects, Chair and Resume for Surprises.\n\n 2-Click on TV for Introduction.\n\n 3-Try rotating the camera using mouse.\n\n 4-For better experience open in Landscape mode in Mobile phone") {
+      // Creates a GUI label to display the cannon
+      let guiCanvas =AdvancedDynamicTexture.CreateFullscreenUI("UI");
+      let guiButton = Button.CreateSimpleButton("guiButton", secname);
+  
+      guiButton.width = "500px";
+      guiButton.height = "200px";
+      guiButton.color = "black";
+      guiButton.cornerRadius = 10;
+      guiButton.background = "yellow";
+      guiButton.fontSize = 16;
+      guiButton.paddingTop = "20px";
+  
+      guiButton.onPointerUpObservable.add(function () {
+          guiCanvas.dispose();
+      });
+  
+      guiButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+      guiCanvas.addControl(guiButton);
+  
+      // Dispose of the guiCanvas after 5 seconds
+      setTimeout(function () {
+          guiCanvas.dispose();
+      }, 7000);
+  
+      return guiCanvas;
+  }
+  
 
   };
 
