@@ -611,7 +611,7 @@ const Portfolio = () => {
           var ANote0VideoMat = new BABYLON.StandardMaterial("m", scene);
           var ANote0VideoVidTex = new BABYLON.VideoTexture(
             "vidtex",
-            "../src/assets/video/myintro.mp4",
+            "../src/components/myintro.mp4",
             scene,
           
           );
