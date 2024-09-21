@@ -891,7 +891,7 @@ const Portfolio = () => {
        className="h-full w-full flex justify-center"
     /> 
        {isVisible && ( <Buttons onChange={handleclick}/>)}
-       {isVisible && ( <Buttons onChange={handleproject}/> )}
+     
        
     
     </div>
