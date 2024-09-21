@@ -903,11 +903,11 @@ const Portfolio = () => {
         {isVisible && (
           <Buttons onChange={handleclick} onprojectclick={handleproject} />
         )}
-        {anim && <Card1/>}
-        {anim && <Card2/>}
-        {anim && <Card3/>}
-        {anim && <Card4/>}
-        {anim && <Card5/>}
+        {anim && !projectview && <Card1/>}
+        {anim && !projectview &&<Card2/>}
+        {anim && !projectview &&<Card3/>}
+        {anim && !projectview &&<Card4/>}
+        {anim && !projectview &&<Card5/>}
       </div>
       {projectview && <Projects />}
     </>
