@@ -4,7 +4,7 @@ import  {Navbar}  from "./components/Navbar";
 import "./index.css"
 
 import { Buttons } from "./components/Buttons";
-import { Projects } from "./components/Projects";
+
 function App() {
   
 
@@ -13,7 +13,7 @@ function App() {
       <div className="">
         <Navbar />
         <Portfolio />
-        <Projects/>
+       
        
       </div>
     </>

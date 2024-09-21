@@ -1,4 +1,4 @@
-import React, { useEffect,useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Engine, Scene } from "@babylonjs/core";
 import "@babylonjs/loaders";
 import * as BABYLON from "@babylonjs/core";
@@ -8,7 +8,8 @@ import { Buttons } from "./Buttons";
 import myIntroVideo from "../assets/video/myintro.mp4";
 import earcut from "earcut";
 import { AdvancedDynamicTexture, Button, Control } from "@babylonjs/gui";
-import {motion} from "framer-motion"
+import { Projects } from "./Projects";
+import { motion } from "framer-motion";
 import { Card1 } from "./Card";
 import { Card2 } from "./Card";
 import { Card3 } from "./Card";
@@ -75,8 +76,10 @@ const BabylonScene = ({
 };
 
 const Portfolio = () => {
-  const[isrunning,setisRunning] =useState(true); 
+  const [isrunning, setisRunning] = useState(true);
   const [isVisible, setIsVisible] = useState(true);
+  const [anim, setanim] = useState(false);
+  const [projectview, setproject] = useState(false);
   const onSceneReady = async (scene) => {
     const engine = scene.getEngine();
     const canvas = scene.getEngine().getRenderingCanvas();
@@ -90,11 +93,12 @@ const Portfolio = () => {
     );
     camera.attachControl(canvas, true);
     camera.radius = 5;
-    if(isrunning) {
-    engine.runRenderLoop(() => {
-      camera.alpha += 0.001;
-      scene.render();
-    });}
+    if (isrunning) {
+      engine.runRenderLoop(() => {
+        camera.alpha += 0.001;
+        scene.render();
+      });
+    }
 
     var check = false;
     let lampon = false;
@@ -105,7 +109,7 @@ const Portfolio = () => {
     );
     lamp.diffuse = new BABYLON.Color3(1, 1, 0);
     lamp.intensity = 0;
-   // createInformationbar();
+    // createInformationbar();
 
     const planeOpts = {
       height: 2.5,
@@ -131,13 +135,9 @@ const Portfolio = () => {
         function (nodeMaterial) {
           // Find the mesh by its name
           //const wall3 = scene.getMeshByName("wall3");
-         
-
-         // if (wall3) {
-            // Assign the node material to the wall3 mesh
-            //  wall3.material = nodeMaterial;
-           
-             
+          // if (wall3) {
+          // Assign the node material to the wall3 mesh
+          //  wall3.material = nodeMaterial;
           // } else {
           //   console.error("Mesh with name 'wall3' not found!");
           // }
@@ -667,7 +667,7 @@ const Portfolio = () => {
           ANote0Video.material = ANote0VideoMat;
 
           camera.target = ANote0Video;
-        
+
           pointLight.intensity = 1;
 
           ANote0VideoVidTex.video.play();
@@ -688,7 +688,7 @@ const Portfolio = () => {
             guiCanvas.dispose();
             check = false;
             camera.target = new BABYLON.Vector3(1, 8.5, -38);
-           
+
             pointLight.intensity = 800;
           });
 
@@ -763,27 +763,31 @@ const Portfolio = () => {
     camera.lowerRadiusLimit = 0;
     camera.upperRadiusLimit = 8;
 
-   
+    const pointLight = new BABYLON.PointLight(
+      "pointLight",
+      new BABYLON.Vector3(0.1, 15.62, -35.2), // Position of the light
+      // Light decay
+      scene
+    );
+    pointLight.intensity = 800;
+    pointLight.diffuse = new BABYLON.Color3(
+      0.9803921568627451,
+      0.9882352941176471,
+      0.6431372549019608
+    );
+    const spotLight = new BABYLON.SpotLight(
+      "areaLight",
+      new BABYLON.Vector3(-7.02, 14.32, -36.68), // Position of the light
+      new BABYLON.Vector3(-0.83, -0.56, 0), // Direction pointing down
+      127.7, // Wide angle to cover a large area
+      2, // Light decay
+      scene
+    );
+    spotLight.intensity = 500;
+    spotLight.diffuse = new BABYLON.Color3(0.4745098039215686, 0, 1);
 
-    const pointLight = new BABYLON.PointLight("pointLight", 
-      new BABYLON.Vector3(0.1, 15.62, -35.20),   // Position of the light
-                                  // Light decay
-      scene
-    );
-   pointLight.intensity =800;
-   pointLight.diffuse= new BABYLON.Color3(0.9803921568627451, 0.9882352941176471, 0.6431372549019608);
-    const spotLight = new BABYLON.SpotLight("areaLight", 
-      new BABYLON.Vector3(-7.02, 14.32, -36.68),   // Position of the light
-      new BABYLON.Vector3(-0.83, -0.56, 0),   // Direction pointing down
-      127.7,                     // Wide angle to cover a large area
-      2,                               // Light decay
-      scene
-    );
-    spotLight.intensity=500;
-    spotLight.diffuse = new BABYLON.Color3(0.4745098039215686, 0, 1)
-    
     // Adjust the light intensity and color
-   
+
     // var bulb3 = new BABYLON.PointLight(
     //   "light3",
     //   new BABYLON.Vector3(0.09000000357627869, 15.774003982543945, -35.13999938964844),
@@ -874,27 +878,39 @@ const Portfolio = () => {
   const onRender = (scene) => {
     // Custom render logic
   };
- const handleclick=() => {
-  setisRunning(false);
-  setIsVisible(false);	
- }
- const handleproject=()=>{
+  const handleclick = () => {
+    setisRunning(false);
+    setIsVisible(false);
+  };
+  const handleproject = () => {
+    setanim(true);
+    setTimeout(function(){
+      setanim(false);
+      setproject(true);
 
- }
+    },6000);
+  };
   return (
-    <div className="relative w-full h-full bg-gray-950">
-      <BabylonScene
-        antialias
-        onSceneReady={onSceneReady}
-        onRender={onRender}
-        id="babylon-canvas"
-       className="h-full w-full flex justify-center"
-    /> 
-       {isVisible && ( <Buttons onChange={handleclick}/>)}
-     
-       
-    
-    </div>
+    <>
+      <div className="relative w-full h-full bg-gray-950">
+        <BabylonScene
+          antialias
+          onSceneReady={onSceneReady}
+          onRender={onRender}
+          id="babylon-canvas"
+          className="h-full w-full flex justify-center"
+        />
+        {isVisible && (
+          <Buttons onChange={handleclick} onprojectclick={handleproject} />
+        )}
+        {anim && <Card1/>}
+        {anim && <Card2/>}
+        {anim && <Card3/>}
+        {anim && <Card4/>}
+        {anim && <Card5/>}
+      </div>
+      {projectview && <Projects />}
+    </>
   );
 };
 
