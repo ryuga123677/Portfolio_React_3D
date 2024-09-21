@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect,useState, useRef } from "react";
 import { Engine, Scene } from "@babylonjs/core";
 import "@babylonjs/loaders";
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/inspector";
+import { Buttons } from "./Buttons";
 //import "@babylonjs/gui";
 import myIntroVideo from "../assets/video/myintro.mp4";
 import earcut from "earcut";
@@ -67,6 +68,8 @@ const BabylonScene = ({
 };
 
 const Portfolio = () => {
+  const[isrunning,setisRunning] =useState(true); 
+  const [isVisible, setIsVisible] = useState(true);
   const onSceneReady = async (scene) => {
     const engine = scene.getEngine();
     const canvas = scene.getEngine().getRenderingCanvas();
@@ -80,7 +83,12 @@ const Portfolio = () => {
     );
     camera.attachControl(canvas, true);
     camera.radius = 5;
-    
+    if(isrunning) {
+    engine.runRenderLoop(() => {
+      camera.alpha += 0.001;
+      scene.render();
+    });}
+
     var check = false;
     let lampon = false;
     const lamp = new BABYLON.PointLight(
@@ -90,7 +98,8 @@ const Portfolio = () => {
     );
     lamp.diffuse = new BABYLON.Color3(1, 1, 0);
     lamp.intensity = 0;
-createInformationbar();
+   // createInformationbar();
+
     const planeOpts = {
       height: 2.5,
       width: 4.1,
@@ -104,13 +113,29 @@ createInformationbar();
     const vidPos = new BABYLON.Vector3(-12.32, 8.61, -26.06);
     ANote0Video.position = vidPos;
     ANote0Video.rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
-   
+
     BABYLON.SceneLoader.ImportMeshAsync(
       null,
       "./models/",
-      "portfolio.glb",
+      "portfolio-1.glb",
       scene
     ).then(() => {
+      BABYLON.NodeMaterial.ParseFromSnippetAsync("#ZJ8KVZ#4", scene).then(
+        function (nodeMaterial) {
+          // Find the mesh by its name
+          const wall3 = scene.getMeshByName("wall3");
+         
+
+          if (wall3) {
+            // Assign the node material to the wall3 mesh
+            //  wall3.material = nodeMaterial;
+           
+             
+          } else {
+            console.error("Mesh with name 'wall3' not found!");
+          }
+        }
+      );
       scene.onPointerDown = function castRay() {
         const ray = scene.createPickingRay(
           scene.pointerX,
@@ -209,7 +234,8 @@ createInformationbar();
           }
 
           createGUIButton(
-            "https://github.com/ryuga123677/mobile-car-simulation","Open Project"
+            "https://github.com/ryuga123677/mobile-car-simulation",
+            "Open Project"
           );
         }
         if (hit.pickedMesh.name == "todo.001" && hit.pickedMesh) {
@@ -260,7 +286,10 @@ createInformationbar();
             );
           }
 
-          createGUIButton("https://github.com/ryuga123677/Chat-Todo-app","Open Project");
+          createGUIButton(
+            "https://github.com/ryuga123677/Chat-Todo-app",
+            "Open Project"
+          );
         }
         if (hit.pickedMesh.name == "mouse.001" && hit.pickedMesh) {
           const mouse = hit.pickedMesh;
@@ -351,7 +380,10 @@ createInformationbar();
             );
           }
 
-          createGUIButton("https://github.com/ryuga123677/Mouse-runner","Open Project");
+          createGUIButton(
+            "https://github.com/ryuga123677/Mouse-runner",
+            "Open Project"
+          );
         }
         if (hit.pickedMesh.name == "hospital" && hit.pickedMesh) {
           const hospital = hit.pickedMesh;
@@ -441,7 +473,10 @@ createInformationbar();
             );
           }
 
-          createGUIButton("https://github.com/ryuga123677/Hospital_Management","Open Project");
+          createGUIButton(
+            "https://github.com/ryuga123677/Hospital_Management",
+            "Open Project"
+          );
         }
         if (hit.pickedMesh.name == "Screenshot (543)" && hit.pickedMesh) {
           const hospital = hit.pickedMesh;
@@ -531,7 +566,10 @@ createInformationbar();
             );
           }
 
-          createGUIButton("https://github.com/ryuga123677/Snake-and-Ladder","Open Project");
+          createGUIButton(
+            "https://github.com/ryuga123677/Snake-and-Ladder",
+            "Open Project"
+          );
         }
         if (hit.pickedMesh.name == "chair" && hit.pickedMesh) {
           var chair = scene.getMeshByName("chair");
@@ -614,8 +652,7 @@ createInformationbar();
           var ANote0VideoVidTex = new BABYLON.VideoTexture(
             "vidtex",
             myIntroVideo,
-            scene,
-          
+            scene
           );
           ANote0VideoMat.diffuseTexture = ANote0VideoVidTex;
           ANote0VideoMat.roughness = 100;
@@ -650,14 +687,14 @@ createInformationbar();
 
           guiButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
           guiCanvas.addControl(guiButton);
-        }  if (hit.pickedMesh.name == "resume" && hit.pickedMesh) {
+        }
+        if (hit.pickedMesh.name == "resume" && hit.pickedMesh) {
           const hospital = hit.pickedMesh;
-        
-        
+
           createGUIButton(
-            "https://drive.google.com/file/d/1wN6vqSVbpScyIGPUJFxk7gICAJ0R20BC/view?usp=drivesdk/ ","Open Resume"
+            "https://drive.google.com/file/d/1wN6vqSVbpScyIGPUJFxk7gICAJ0R20BC/view?usp=drivesdk/ ",
+            "Open Resume"
           );
-           
         }
         if (
           hit.pickedMesh.name == "Lamp" &&
@@ -701,9 +738,10 @@ createInformationbar();
         "yellowMaterial",
         scene
       );
-      yellowMaterial.diffuseColor = BABYLON.Color3.White();
 
-      yellowMaterial.roughness = 1;
+      yellowMaterial.diffuseColor = BABYLON.Color3.Black;
+
+      yellowMaterial.roughness = 2;
       myText.material = yellowMaterial;
     };
 
@@ -716,38 +754,73 @@ createInformationbar();
     // });
 
     camera.lowerRadiusLimit = 0;
-     camera.upperRadiusLimit = 8;
+    camera.upperRadiusLimit = 8;
 
     // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-    var bulb1 = new BABYLON.PointLight(
-      "light1",
-      new BABYLON.Vector3(-12.95, 14.73, -23.0),
-      scene
-    );
-    var emitterPosition = new BABYLON.Vector3(10, 1, 10);
-    var emitterMesh = new BABYLON.Mesh("emitterMesh", scene);
-    emitterMesh.position = new BABYLON.Vector3(0, 0, 1); // Set the initial position of the emitter mesh
+    // var bulb1 = new BABYLON.PointLight(
+    //   "light1",
+    //   new BABYLON.Vector3(-12.95, 14.73, -23.0),
+    //   scene
+    // );
+    // var emitterPosition = new BABYLON.Vector3(10, 1, 10);
+    // var emitterMesh = new BABYLON.Mesh("emitterMesh", scene);
+    // emitterMesh.position = new BABYLON.Vector3(0, 0, 1); // Set the initial position of the emitter mesh
 
     // Default intensity is 1. Let's dim the light a small amount
-    bulb1.intensity = 150;
-    var bulb2 = new BABYLON.PointLight(
-      "light2",
-      new BABYLON.Vector3(0.6, 15.09, -47.06),
+    //  bulb1.intensity = 150;
+    // var bulb2 = new BABYLON.PointLight(
+    //   "light2",
+    //   new BABYLON.Vector3(0.6, 15.09, -47.06),
+    //   scene
+    // );
+    //bulb2.intensity = 200;
+    // const light = new BABYLON.HemisphericLight(
+    //   "hemisphericLight",
+    //   new BABYLON.Vector3(1, 1, 1),
+    //   scene
+    // );
+    // light.intensity = 1;
+   
+    // const light2 = new BABYLON.HemisphericLight(
+    //   "hemisphericLight",
+    //   new BABYLON.Vector3(0, 0, 1),
+    //   scene
+    // );
+    // light2.intensity = 1;
+
+    const pointLight = new BABYLON.PointLight("pointLight", 
+      new BABYLON.Vector3(0.1, 15.62, -35.20),   // Position of the light
+                                  // Light decay
       scene
     );
-    bulb2.intensity = 200;
-    var bulb3 = new BABYLON.PointLight(
-      "light3",
-      new BABYLON.Vector3(0.09, 15.63, -35.14),
+   pointLight.intensity =555;
+   pointLight.diffuse= new BABYLON.Color3(0.9803921568627451, 0.9882352941176471, 0.6431372549019608);
+    const spotLight = new BABYLON.SpotLight("areaLight", 
+      new BABYLON.Vector3(-7.02, 14.32, -36.68),   // Position of the light
+      new BABYLON.Vector3(-0.83, -0.56, 0),   // Direction pointing down
+      127.7,                     // Wide angle to cover a large area
+      2,                               // Light decay
       scene
     );
-    bulb3.intensity = 500;
-    var bulb4 = new BABYLON.PointLight(
-      "light4",
-      new BABYLON.Vector3(1.38, 15.79, -46.75),
-      scene
-    );
-    bulb4.intensity = 300;
+    spotLight.intensity=500;
+    spotLight.diffuse = new BABYLON.Color3(0.4745098039215686, 0, 1)
+    
+    // Adjust the light intensity and color
+   
+    // var bulb3 = new BABYLON.PointLight(
+    //   "light3",
+    //   new BABYLON.Vector3(0.09000000357627869, 15.774003982543945, -35.13999938964844),
+    //   scene
+    // );
+    // bulb3.intensity = 500;
+    // bulb3.diffuse = new BABYLON.Color3(1, 1, 0.8);
+    // var bulb4 = new BABYLON.PointLight(
+    //   "light4",
+    //   new BABYLON.Vector3(1.38, 15.79, -46.75),
+    //   scene
+    // );
+
+    // bulb4.intensity = 300;
 
     function moveMesh(mesh, x, y = null) {
       BABYLON.Animation.CreateAndStartAnimation(
@@ -774,13 +847,9 @@ createInformationbar();
       }
     }
 
-    function createGUIButton(url,name) {
-      const guiCanvas =
-        AdvancedDynamicTexture.CreateFullscreenUI("UI");
-      const guiButton =Button.CreateSimpleButton(
-        "guiButton",
-        name
-      );
+    function createGUIButton(url, name) {
+      const guiCanvas = AdvancedDynamicTexture.CreateFullscreenUI("UI");
+      const guiButton = Button.CreateSimpleButton("guiButton", name);
       guiButton.width = "150px";
       guiButton.height = "40px";
       guiButton.top = "300px";
@@ -789,17 +858,18 @@ createInformationbar();
       guiButton.background = "green";
       guiButton.onPointerUpObservable.add(() => {
         window.open(url, "newtab", "status=1,fullscreen=1");
-            guiCanvas.dispose();
+        guiCanvas.dispose();
       });
-      guiButton.verticalAlignment =
-       Control.VERTICAL_ALIGNMENT_CENTER;
+      guiButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
       guiCanvas.addControl(guiButton);
     }
-    function createInformationbar( secname = "*Tips*\n\n 1-Click on Lamp, Projects, Chair and Resume for Surprises.\n\n 2-Click on TV for Introduction.\n\n 3-Try rotating the camera using mouse.\n\n 4-For better experience open in Landscape mode in Mobile phone") {
+    function createInformationbar(
+      secname = "*Tips*\n\n 1-Click on Lamp, Projects, Chair and Resume for Surprises.\n\n 2-Click on TV for Introduction.\n\n 3-Try rotating the camera using mouse.\n\n 4-For better experience open in Landscape mode in Mobile phone"
+    ) {
       // Creates a GUI label to display the cannon
-      let guiCanvas =AdvancedDynamicTexture.CreateFullscreenUI("UI");
+      let guiCanvas = AdvancedDynamicTexture.CreateFullscreenUI("UI");
       let guiButton = Button.CreateSimpleButton("guiButton", secname);
-  
+
       guiButton.width = "500px";
       guiButton.height = "200px";
       guiButton.color = "black";
@@ -807,38 +877,41 @@ createInformationbar();
       guiButton.background = "yellow";
       guiButton.fontSize = 16;
       guiButton.paddingTop = "20px";
-  
+
       guiButton.onPointerUpObservable.add(function () {
-          guiCanvas.dispose();
+        guiCanvas.dispose();
       });
-  
+
       guiButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
       guiCanvas.addControl(guiButton);
-  
+
       // Dispose of the guiCanvas after 5 seconds
       setTimeout(function () {
-          guiCanvas.dispose();
+        guiCanvas.dispose();
       }, 7000);
-  
-      return guiCanvas;
-  }
-  
 
+      return guiCanvas;
+    }
   };
 
   const onRender = (scene) => {
     // Custom render logic
   };
-
+ const handleclick=() => {
+  setisRunning(false);
+  setIsVisible(false);	
+ }
   return (
-    <div style={{ flex: 1, display: "flex", width: "100vw", height: "100vh"}}>
+    <div className="relative w-full h-full">
       <BabylonScene
         antialias
         onSceneReady={onSceneReady}
         onRender={onRender}
         id="babylon-canvas"
-        style={{ width: "100%", height: "100%" }}
-      />
+       className="h-full w-full flex justify-center"
+    /> 
+       {isVisible && ( <Buttons onChange={handleclick}/>)}
+  
     </div>
   );
 };
