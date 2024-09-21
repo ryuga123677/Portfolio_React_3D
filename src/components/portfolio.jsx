@@ -660,8 +660,8 @@ const Portfolio = () => {
           ANote0Video.material = ANote0VideoMat;
 
           camera.target = ANote0Video;
-          bulb3.intensity = 1;
-          bulb2.intensity = 1;
+        
+          pointLight.intensity = 1;
 
           ANote0VideoVidTex.video.play();
 
@@ -681,8 +681,8 @@ const Portfolio = () => {
             guiCanvas.dispose();
             check = false;
             camera.target = new BABYLON.Vector3(1, 8.5, -38);
-            bulb3.intensity = 500;
-            bulb2.intensity = 100;
+           
+            pointLight.intensity = 800;
           });
 
           guiButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
@@ -756,44 +756,14 @@ const Portfolio = () => {
     camera.lowerRadiusLimit = 0;
     camera.upperRadiusLimit = 8;
 
-    // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-    // var bulb1 = new BABYLON.PointLight(
-    //   "light1",
-    //   new BABYLON.Vector3(-12.95, 14.73, -23.0),
-    //   scene
-    // );
-    // var emitterPosition = new BABYLON.Vector3(10, 1, 10);
-    // var emitterMesh = new BABYLON.Mesh("emitterMesh", scene);
-    // emitterMesh.position = new BABYLON.Vector3(0, 0, 1); // Set the initial position of the emitter mesh
-
-    // Default intensity is 1. Let's dim the light a small amount
-    //  bulb1.intensity = 150;
-    // var bulb2 = new BABYLON.PointLight(
-    //   "light2",
-    //   new BABYLON.Vector3(0.6, 15.09, -47.06),
-    //   scene
-    // );
-    //bulb2.intensity = 200;
-    // const light = new BABYLON.HemisphericLight(
-    //   "hemisphericLight",
-    //   new BABYLON.Vector3(1, 1, 1),
-    //   scene
-    // );
-    // light.intensity = 1;
    
-    // const light2 = new BABYLON.HemisphericLight(
-    //   "hemisphericLight",
-    //   new BABYLON.Vector3(0, 0, 1),
-    //   scene
-    // );
-    // light2.intensity = 1;
 
     const pointLight = new BABYLON.PointLight("pointLight", 
       new BABYLON.Vector3(0.1, 15.62, -35.20),   // Position of the light
                                   // Light decay
       scene
     );
-   pointLight.intensity =555;
+   pointLight.intensity =800;
    pointLight.diffuse= new BABYLON.Color3(0.9803921568627451, 0.9882352941176471, 0.6431372549019608);
     const spotLight = new BABYLON.SpotLight("areaLight", 
       new BABYLON.Vector3(-7.02, 14.32, -36.68),   // Position of the light
