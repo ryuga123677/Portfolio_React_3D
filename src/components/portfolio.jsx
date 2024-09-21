@@ -8,6 +8,13 @@ import { Buttons } from "./Buttons";
 import myIntroVideo from "../assets/video/myintro.mp4";
 import earcut from "earcut";
 import { AdvancedDynamicTexture, Button, Control } from "@babylonjs/gui";
+import {motion} from "framer-motion"
+import { Card1 } from "./Card";
+import { Card2 } from "./Card";
+import { Card3 } from "./Card";
+import { Card4 } from "./Card";
+import { Card5 } from "./Card";
+
 window.earcut = earcut;
 
 const BabylonScene = ({
@@ -123,17 +130,17 @@ const Portfolio = () => {
       BABYLON.NodeMaterial.ParseFromSnippetAsync("#ZJ8KVZ#4", scene).then(
         function (nodeMaterial) {
           // Find the mesh by its name
-          const wall3 = scene.getMeshByName("wall3");
+          //const wall3 = scene.getMeshByName("wall3");
          
 
-          if (wall3) {
+         // if (wall3) {
             // Assign the node material to the wall3 mesh
             //  wall3.material = nodeMaterial;
            
              
-          } else {
-            console.error("Mesh with name 'wall3' not found!");
-          }
+          // } else {
+          //   console.error("Mesh with name 'wall3' not found!");
+          // }
         }
       );
       scene.onPointerDown = function castRay() {
@@ -871,8 +878,11 @@ const Portfolio = () => {
   setisRunning(false);
   setIsVisible(false);	
  }
+ const handleproject=()=>{
+
+ }
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full bg-gray-950">
       <BabylonScene
         antialias
         onSceneReady={onSceneReady}
@@ -881,7 +891,9 @@ const Portfolio = () => {
        className="h-full w-full flex justify-center"
     /> 
        {isVisible && ( <Buttons onChange={handleclick}/>)}
-  
+       {isVisible && ( <Buttons onChange={handleproject}/> )}
+       
+    
     </div>
   );
 };
