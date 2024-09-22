@@ -9,10 +9,11 @@ import { motion } from "framer-motion";
 export const Card1 = () => {
   return (
     <motion.div
-    initial={{ y: "0", opacity: 0 }}        
+    initial={{ y: "0",scale:0, opacity: 0 }}        
     animate={{ 
       y: ["0px", "0px", "100vh"],           
-      opacity: [0, 1, 1]                   
+      opacity: [0, 1, 1] ,
+      scale:[0,1,1]                
     }}  
     transition={{ 
       delay: 1,                              
@@ -36,10 +37,11 @@ export const Card1 = () => {
 export const Card2 = () => {
   return (
     <motion.div
-    initial={{ y: "0", opacity: 0 }}        
+    initial={{ y: "0", opacity: 0 ,scale:0}}        
     animate={{ 
       y: ["0px", "0px", "100vh"],           
-      opacity: [0, 1, 1]                   
+      opacity: [0, 1, 1]   ,
+      scale:[0,1,1]                  
     }}  
     transition={{ 
       delay: 2,                              
@@ -63,10 +65,11 @@ export const Card2 = () => {
 export const Card3 = () => {
   return (
     <motion.div
-    initial={{ y: "0", opacity: 0 }}        
+    initial={{ y: "0", opacity: 0,scale:0 }}        
     animate={{ 
       y: ["0px", "0px", "100vh"],           
-      opacity: [0, 1, 1]                   
+      opacity: [0, 1, 1]   ,
+      scale:[0,1,1]                  
     }}  
     transition={{ 
       delay: 3,                              
@@ -90,10 +93,11 @@ export const Card3 = () => {
 export const Card4 = () => {
   return (
     <motion.div
-    initial={{ y: "0", opacity: 0 }}        
+    initial={{ y: "0", opacity: 0,scale:0 }}        
     animate={{ 
       y: ["0px", "0px", "100vh"],           
-      opacity: [0, 1, 1]                   
+      opacity: [0, 1, 1]   ,
+      scale:[0,1,1]                  
     }}  
     transition={{ 
       delay: 4,                              
@@ -117,10 +121,11 @@ export const Card4 = () => {
 export const Card5 = () => {
   return (
     <motion.div
-    initial={{ y: "0", opacity: 0 }}        
+    initial={{ y: "0", opacity: 0,scale:0 }}        
     animate={{ 
       y: ["0px", "0px", "100vh"],           
-      opacity: [0, 1, 1]                   
+      opacity: [0, 1, 1]   ,
+      scale:[0,1,1]                  
     }}  
     transition={{ 
       delay: 5,                              

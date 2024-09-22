@@ -893,7 +893,7 @@ const Portfolio = () => {
 
     },7000);
     const handleScroll = () => {
-      
+   
       window.scrollTo({
         top: 1000, 
         behavior: "smooth", 
