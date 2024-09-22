@@ -22,7 +22,7 @@ export const Card1 = () => {
     }}
       className="absolute inset-0 flex justify-center items-center h-screen w-screen"
     >
-      <div className="flex flex-col text-xl text-white font-bold flex-col justify-center items-center h-[300px] w-[500px] m-5 p-2 glass-effect rounded-md">
+      <div className="flex flex-col text-xl text-white font-bold flex-col justify-center items-center h-[300px] w-[500px] sm:h-[250px] sm:w-[400px] m-5 p-2 glass-effect rounded-md">
         <img
           src={portfolio}
           alt="Portfolio Project"
@@ -50,7 +50,7 @@ export const Card2 = () => {
     }}
       className="absolute inset-0 flex justify-center items-center h-screen w-screen"
     >
-      <div className="flex flex-col text-xl text-white font-bold justify-center items-center h-[300px] w-[500px] m-5 p-2 glass-effect rounded-md">
+      <div className="flex flex-col text-xl text-white font-bold justify-center items-center h-[300px] w-[500px] sm:h-[250px] sm:w-[400px] m-5 p-2 glass-effect rounded-md">
         <img
           src={hospital}
           alt="Hospital Project"
@@ -78,7 +78,7 @@ export const Card3 = () => {
     }}
       className="absolute inset-0 flex justify-center items-center h-screen w-screen"
     >
-      <div className="flex flex-col text-xl text-white font-bold justify-center items-center h-[300px] w-[500px] m-5 p-2 glass-effect rounded-md">
+      <div className="flex flex-col text-xl text-white font-bold justify-center items-center h-[300px] w-[500px] sm:h-[250px] sm:w-[400px] m-5 p-2 glass-effect rounded-md">
         <img
           src={ghost}
           alt="Ghost Project"
@@ -106,7 +106,7 @@ export const Card4 = () => {
     }}
       className="absolute inset-0 flex justify-center items-center h-screen w-screen"
     >
-      <div className="flex flex-col text-xl text-white font-bold justify-center items-center h-[300px] w-[500px] m-5 p-2 glass-effect rounded-md">
+      <div className="flex flex-col text-xl text-white font-bold justify-center items-center h-[300px] w-[500px] sm:h-[250px] sm:w-[400px] m-5 p-2 glass-effect rounded-md">
         <img
           src={snake}
           alt="Snake Project"
@@ -134,7 +134,7 @@ export const Card5 = () => {
     }}
       className="absolute inset-0 flex justify-center items-center h-screen w-screen"
     >
-      <div className="flex flex-col text-xl text-white font-bold justify-center items-center h-[300px] w-[500px] m-5 p-2 glass-effect rounded-md">
+      <div className="flex flex-col text-xl text-white font-bold justify-center items-center h-[300px] w-[500px] sm:h-[250px] sm:w-[400px] m-5 p-2 glass-effect rounded-md">
         <img
           src={todo}
           alt="Todo Project"
