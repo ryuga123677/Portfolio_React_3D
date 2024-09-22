@@ -14,11 +14,11 @@ export const Projects = () => {
     <>
       <div
         className="flex justify-center text-amber-800 text-5xl font-bold p-5"
-        style={{backgroundColor:"#d9b99b"}}
+        style={{backgroundColor:"#C59B49"}}
       >
         Projects
       </div>
-      <div style={{backgroundColor:"#d9b99b"}} className="flex flex-wrap justify-evenly gap-20 p-5 text-black">
+      <div style={{backgroundColor:"#C59B49"}} className="flex flex-wrap justify-evenly gap-20 p-5 text-black">
         {/* Card 1 */}
         <button
           onClick={() => handleclick("https://github.com/ryuga123677/Portfolio_React_3D")}

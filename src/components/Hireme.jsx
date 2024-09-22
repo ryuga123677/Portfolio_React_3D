@@ -35,8 +35,8 @@ export const Hireme = () => {
   };
 
   return (
-    <div style={{backgroundColor:"#d9b99b"}} className="w-full max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4 text-amber-600" >Hire Me</h2>
+    <div  className="w-full max-w-md mx-auto">
+      <h2 className="text-2xl font-bold mb-4" style={{ color: "#d9b99b" }}>Hire Me</h2>
 
       {sent && <p className="text-green-500 mb-4">Your message has been sent!</p>}
 

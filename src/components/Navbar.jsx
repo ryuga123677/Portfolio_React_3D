@@ -68,7 +68,7 @@ export const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div style={{backgroundColor:"#d9b99b"}} className="sm:hidden flex flex-col items-center text-white space-y-4 py-4">
+        <div className="sm:hidden flex flex-col items-center bg-amber-900 text-white space-y-4 py-4">
           <button
             onClick={() => setInstruct(true)}
             className="hover:text-amber-700"
@@ -99,7 +99,7 @@ export const Navbar = () => {
       {/* Instructions Modal */}
       {instruct && (
         <div className="absolute top-0 left-0 inset-0 h-full w-full bg-blur bg-opacity-70 flex justify-center items-center z-50">
-          <div style={{backgroundColor:"#d9b99b"}} className=" p-6 rounded-lg shadow-lg max-w-md w-full mx-4 relative">
+          <div className="bg-amber-800 p-6 rounded-lg shadow-lg max-w-md w-full mx-4 relative">
             <button
               onClick={() => setInstruct(false)}
               className="absolute top-2 right-2 text-white font-bold"
@@ -114,7 +114,7 @@ export const Navbar = () => {
       {/* Hire Me Modal */}
       {hireme && (
         <div className="absolute top-0 left-0 inset-0 h-full w-full  bg-opacity-70 flex justify-center items-center z-50">
-          <div style={{backgroundColor:"#d9b99b"}} className=" p-6 rounded-lg shadow-lg max-w-md w-full mx-4 relative">
+          <div className="bg-amber-800 p-6 rounded-lg shadow-lg max-w-md w-full mx-4 relative">
             <button
               onClick={() => setHireme(false)}
               className="absolute top-2 right-2 text-white font-bold"
