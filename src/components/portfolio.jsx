@@ -889,12 +889,16 @@ const Portfolio = () => {
     setTimeout(function(){
       setanim(false);
       setproject(true);
-  const container = scrollContainerRef.current;
-    if (container) {
-      container.scrollTop = container.scrollHeight;
-    }
+      handleScroll();
 
     },7000);
+    const handleScroll = () => {
+      
+      window.scrollTo({
+        top: 1000, 
+        behavior: "smooth", 
+      });
+    };
   };
   return (
     <>
