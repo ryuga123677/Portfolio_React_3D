@@ -21,7 +21,7 @@ export const Navbar = () => {
   return (
     <>
       {/* Navbar */}
-      <div className="flex bg-amber-800 items-center justify-between h-[9%] px-4 text-white">
+      <div className="flex bg-amber-700 items-center justify-between h-[9%] px-4 text-white">
         {/* Logo */}
         <div
           style={{ color: "#d9b99b", fontFamily: "Mufan" }}
