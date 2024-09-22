@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Insrtuctions } from "./Insrtuctions";
 import { Hireme } from "./Hireme";
 import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for hamburger and close
+import { Skills } from "./Skills";
 
 export const Navbar = () => {
   const [instruct, setInstruct] = useState(false);
   const [hireme, setHireme] = useState(false);
+  const [skills, setskills] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleResume = () => {
@@ -43,7 +45,7 @@ export const Navbar = () => {
           <button onClick={() => setInstruct(true)} className="hover:text-pink-500">
             Instructions
           </button>
-          <button className="hover:text-pink-500">Skills</button>
+          <button onClick={()=>setskills(true)} className="hover:text-pink-500">Skills</button>
           <button onClick={handleResume} className="hover:text-pink-500">
             Resume
           </button>
@@ -98,6 +100,7 @@ export const Navbar = () => {
           </div>
         </div>
       )}
+      {skills && (<Skills/>)}
     </>
   );
 };
