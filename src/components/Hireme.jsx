@@ -35,8 +35,8 @@ export const Hireme = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4" style={{ color: "#e91e63" }}>Hire Me</h2>
+    <div style={{backgroundColor:"#d9b99b"}} className="w-full max-w-md mx-auto">
+      <h2 className="text-2xl font-bold mb-4 text-amber-600" >Hire Me</h2>
 
       {sent && <p className="text-green-500 mb-4">Your message has been sent!</p>}
 
@@ -55,7 +55,7 @@ export const Hireme = () => {
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-4 ">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
             Email
           </label>
@@ -82,11 +82,11 @@ export const Hireme = () => {
           />
         </div>
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between ">
           <button
             type="submit"
-            className=" hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
-            style={{ backgroundColor: "#e91e63" }}
+            className=" text-white font-bold py-2 px-4 rounded"
+            style={{ backgroundColor: "#F6AC17" }}
           >
             Send
           </button>

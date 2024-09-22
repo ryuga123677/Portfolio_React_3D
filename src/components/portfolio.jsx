@@ -9,7 +9,6 @@ import myIntroVideo from "../assets/video/myintro.mp4";
 import earcut from "earcut";
 import { AdvancedDynamicTexture, Button, Control } from "@babylonjs/gui";
 import { Projects } from "./Projects";
-import { motion } from "framer-motion";
 import { Card1 } from "./Card";
 import { Card2 } from "./Card";
 import { Card3 } from "./Card";
@@ -72,7 +71,7 @@ const BabylonScene = ({
     onSceneReady,
   ]);
 
-  return <canvas ref={reactCanvas} {...rest} />;
+  return <canvas className="" ref={reactCanvas} {...rest} />;
 };
 
 const Portfolio = () => {
@@ -682,7 +681,7 @@ const Portfolio = () => {
           guiButton.top = "300px";
           guiButton.color = "white";
           guiButton.cornerRadius = 5;
-          guiButton.background = "green";
+          guiButton.background = "#F6AC17";
 
           guiButton.onPointerUpObservable.add(() => {
             ANote0VideoVidTex.video.pause();
@@ -785,24 +784,9 @@ const Portfolio = () => {
       scene
     );
     spotLight.intensity = 500;
-    spotLight.diffuse = new BABYLON.Color3(0.4745098039215686, 0, 1);
+    spotLight.diffuse = new BABYLON.Color3(0.5647058823529412, 0.5803921568627451, 0.1843137254901961);
 
-    // Adjust the light intensity and color
 
-    // var bulb3 = new BABYLON.PointLight(
-    //   "light3",
-    //   new BABYLON.Vector3(0.09000000357627869, 15.774003982543945, -35.13999938964844),
-    //   scene
-    // );
-    // bulb3.intensity = 500;
-    // bulb3.diffuse = new BABYLON.Color3(1, 1, 0.8);
-    // var bulb4 = new BABYLON.PointLight(
-    //   "light4",
-    //   new BABYLON.Vector3(1.38, 15.79, -46.75),
-    //   scene
-    // );
-
-    // bulb4.intensity = 300;
 
     function moveMesh(mesh, x, y = null) {
       BABYLON.Animation.CreateAndStartAnimation(
@@ -831,49 +815,44 @@ const Portfolio = () => {
 
     function createGUIButton(url, name) {
       const guiCanvas = AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+      // Main button
       const guiButton = Button.CreateSimpleButton("guiButton", name);
       guiButton.width = "150px";
       guiButton.height = "40px";
-      guiButton.top = "300px";
+      guiButton.top = "30px";
       guiButton.color = "white";
       guiButton.cornerRadius = 5;
-      guiButton.background = "green";
+      guiButton.background = "#F6AC17";
       guiButton.onPointerUpObservable.add(() => {
         window.open(url, "newtab", "status=1,fullscreen=1");
         guiCanvas.dispose();
       });
       guiButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+      guiButton.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
       guiCanvas.addControl(guiButton);
-    }
-    function createInformationbar(
-      secname = "*Tips*\n\n 1-Click on Lamp, Projects, Chair and Resume for Surprises.\n\n 2-Click on TV for Introduction.\n\n 3-Try rotating the camera using mouse.\n\n 4-For better experience open in Landscape mode in Mobile phone"
-    ) {
-      // Creates a GUI label to display the cannon
-      let guiCanvas = AdvancedDynamicTexture.CreateFullscreenUI("UI");
-      let guiButton = Button.CreateSimpleButton("guiButton", secname);
-
-      guiButton.width = "500px";
-      guiButton.height = "200px";
-      guiButton.color = "black";
-      guiButton.cornerRadius = 10;
-      guiButton.background = "yellow";
-      guiButton.fontSize = 16;
-      guiButton.paddingTop = "20px";
-
-      guiButton.onPointerUpObservable.add(function () {
-        guiCanvas.dispose();
+    //cloose button
+      const closeButton = Button.CreateSimpleButton("closeButton", "X"); // Use "X" as button text
+      closeButton.width = "40px";
+      closeButton.height = "40px";
+      closeButton.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+      closeButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+      closeButton.top = "0px";
+      closeButton.left="97px"
+   
+     
+      closeButton.color = "white"; // Color of the "X"
+      closeButton.background = "transparent"; // Make background transparent
+      closeButton.fontSize = "20px"; // Adjust font size as needed
+    
+      closeButton.onPointerUpObservable.add(() => {
+        guiCanvas.dispose(); // Dispose of the GUI when the close button is clicked
       });
-
-      guiButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-      guiCanvas.addControl(guiButton);
-
-      // Dispose of the guiCanvas after 5 seconds
-      setTimeout(function () {
-        guiCanvas.dispose();
-      }, 7000);
-
-      return guiCanvas;
+    
+      guiCanvas.addControl(closeButton); 
     }
+    
+    
   };
 
   const onRender = (scene) => {
@@ -902,13 +881,13 @@ const Portfolio = () => {
   };
   return (
     <>
-      <div className="relative w-full min-h-screen  bg-gray-950">
+      <div className="relative w-full h-full bg-gray-950 ">
         <BabylonScene
           antialias
           onSceneReady={onSceneReady}
           onRender={onRender}
           id="babylon-canvas"
-          className="min-h-screen w-full flex justify-center"
+          className="h-[91vh] w-full flex justify-center"
         />
         {isVisible && (
           <Buttons onChange={handleclick} onprojectclick={handleproject} />

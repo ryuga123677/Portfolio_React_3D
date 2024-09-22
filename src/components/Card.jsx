@@ -22,7 +22,7 @@ export const Card1 = () => {
     }}
       className="absolute inset-0 flex justify-center items-center h-screen w-screen"
     >
-      <div className="flex flex-col text-xl text-white font-bold flex-col justify-center items-center h-[300px] w-[500px] sm:h-[250px] sm:w-[400px] m-5 p-2 glass-effect rounded-md">
+      <div className="flex flex-col text-xl text-white font-bold flex-col justify-center items-center glass-effect h-[300px] w-[500px] sm:h-[250px] sm:w-[400px] m-5 p-2  rounded-md">
         <img
           src={portfolio}
           alt="Portfolio Project"

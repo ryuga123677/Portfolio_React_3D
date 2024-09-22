@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <div className="bg-gray-900">
+      <div className="flex flex-col flex-grow h-[100vh] bg-gray-900">
         <Navbar />
         <Portfolio/>
        
