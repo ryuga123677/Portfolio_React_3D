@@ -9,8 +9,8 @@ const handleresume=() => {
 }
   return (
     <>
-      <div className="flex bg-gray-900 h-10 justify-center text-white justify-evenly">
-        <div style={{ color: "#e91e63" }} className="text-2xl">
+      <div className="flex bg-gray-900 h-10 justify-center text-2xl text-white justify-evenly">
+        <div style={{ color: "#e91e63",fontFamily:"Mufan" }} className="text-4xl font-bold">
           Harshit's Portfolio
         </div>
         <button onClick={() => setinstruct(true)}>Instructions</button>
@@ -19,7 +19,7 @@ const handleresume=() => {
         <button onClick={()=>sethireme(true)}>Hire me</button>
       </div>
       {instruct && (
-        <div className="absolute top-0 left-0 inset-0 h-full w-full bg-transparent bg-opacity-70 flex justify-center items-center z-50">
+        <div className="absolute top-0 left-0 inset-0 h-full w-full bg-transparent text-xl bg-opacity-70 flex justify-center items-center z-50">
           <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center justify-center relative">
             <button
               onClick={() => setinstruct(false)}

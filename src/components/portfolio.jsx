@@ -80,6 +80,7 @@ const Portfolio = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [anim, setanim] = useState(false);
   const [projectview, setproject] = useState(false);
+  const scrollContainerRef = useRef(null);
   const onSceneReady = async (scene) => {
     const engine = scene.getEngine();
     const canvas = scene.getEngine().getRenderingCanvas();
@@ -884,15 +885,20 @@ const Portfolio = () => {
   };
   const handleproject = () => {
     setanim(true);
+
     setTimeout(function(){
       setanim(false);
       setproject(true);
+  const container = scrollContainerRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
 
-    },6000);
+    },7000);
   };
   return (
     <>
-      <div className="relative w-full h-full bg-gray-950">
+      <div className="relative w-full min-h-screen  bg-gray-950">
         <BabylonScene
           antialias
           onSceneReady={onSceneReady}

@@ -10,9 +10,9 @@ function App() {
 
   return (
     <>
-      <div className="">
+      <div className="h-max">
         <Navbar />
-        <Portfolio />
+        <Portfolio/>
        
        
       </div>
