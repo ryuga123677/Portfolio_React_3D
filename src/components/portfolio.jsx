@@ -918,8 +918,9 @@ const Portfolio = () => {
         {anim && !projectview &&<Card3/>}
         {anim && !projectview &&<Card4/>}
         {anim && !projectview &&<Card5/>}
+      
       </div>
-      {projectview && <Projects />}
+      { projectview && <Projects />}
     </>
   );
 };

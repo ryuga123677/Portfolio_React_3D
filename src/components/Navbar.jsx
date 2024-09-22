@@ -42,14 +42,25 @@ export const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden sm:flex space-x-10 text-2xl">
-          <button onClick={() => setInstruct(true)} className="hover:text-pink-500">
+          <button
+            onClick={() => setInstruct(true)}
+            className="hover:text-pink-500"
+          >
             Instructions
           </button>
-          <button onClick={()=>setskills(true)} className="hover:text-pink-500">Skills</button>
+          <button
+            onClick={() => setskills(true)}
+            className="hover:text-pink-500"
+          >
+            Skills
+          </button>
           <button onClick={handleResume} className="hover:text-pink-500">
             Resume
           </button>
-          <button onClick={() => setHireme(true)} className="hover:text-pink-500">
+          <button
+            onClick={() => setHireme(true)}
+            className="hover:text-pink-500"
+          >
             Hire me
           </button>
         </div>
@@ -58,14 +69,28 @@ export const Navbar = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="sm:hidden flex flex-col items-center bg-gray-900 text-white space-y-4 py-4">
-          <button onClick={() => setInstruct(true)} className="hover:text-pink-500">
+          <button
+            onClick={() => setInstruct(true)}
+            className="hover:text-pink-500"
+          >
             Instructions
           </button>
-          <button className="hover:text-pink-500">Skills</button>
+          <button
+            onClick={() => {
+              setskills(true);
+              setIsMenuOpen(false);
+            }}
+            className="hover:text-pink-500"
+          >
+            Skills
+          </button>
           <button onClick={handleResume} className="hover:text-pink-500">
             Resume
           </button>
-          <button onClick={() => setHireme(true)} className="hover:text-pink-500">
+          <button
+            onClick={() => setHireme(true)}
+            className="hover:text-pink-500"
+          >
             Hire me
           </button>
         </div>
@@ -100,7 +125,7 @@ export const Navbar = () => {
           </div>
         </div>
       )}
-      {skills && (<Skills/>)}
+      {skills && <Skills onchange={setskills} />}
     </>
   );
 };

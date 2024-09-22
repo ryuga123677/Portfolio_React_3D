@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <div className="h-max">
+      <div className="bg-gray-900">
         <Navbar />
         <Portfolio/>
        

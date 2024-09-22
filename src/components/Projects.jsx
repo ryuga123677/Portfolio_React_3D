@@ -18,7 +18,7 @@ export const Projects = () => {
       >
         Projects
       </div>
-      <div className="flex flex-wrap justify-evenly gap-20 p-5 bg-gray-900 text-white">
+      <div className="flex flex-wrap justify-evenly gap-20 p-5  bg-gray-900 text-white">
         <button
           onClick={() => handleclick("https://github.com/ryuga123677/Portfolio_React_3D")}
           className="  sm:h-[200px] sm:w-[45%] md:h-[300px] md:w-[45%] lg:h-[300px] lg:w-[40%] m-5 p-2 glass-effect rounded-md"
@@ -73,7 +73,7 @@ export const Projects = () => {
 
         <button
           onClick={() => handleclick("https://github.com/ryuga123677/Chat-Todo-app")}
-          className=" sm:h-[200px] sm:w-[45%]  lg:h-[300px] lg:w-[40%] m-5 p-2 glass-effect rounded-md"
+          className=" sm:h-[200px] sm:w-[45%]  lg:h-[300px] lg:w-[40%] m-5 md-5 p-2 glass-effect rounded-md"
         >
           <img
             src={todo}
@@ -81,7 +81,7 @@ export const Projects = () => {
             className="object-cover h-full w-full rounded-md"
           />
           <div className="text-xl m-3">Work Tracker</div>
-          <div className="text-md m-3">Flutter, Dart, Firebase, Authentication, Firestore, Firebase-Notification</div>
+          <div className="text-md m-3 ">Flutter, Dart, Firebase, Authentication, Firestore, Firebase-Notification</div>
         </button>
       </div>
     </>
