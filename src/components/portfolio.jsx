@@ -904,7 +904,7 @@ const Portfolio = () => {
           onSceneReady={onSceneReady}
           onRender={onRender}
           id="babylon-canvas"
-          className="h-full w-full flex justify-center"
+          className="min-h-screen w-full flex justify-center"
         />
         {isVisible && (
           <Buttons onChange={handleclick} onprojectclick={handleproject} />
