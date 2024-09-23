@@ -25,7 +25,7 @@ export const Navbar = () => {
         {/* Logo */}
         <div
           style={{ color: "#d9b99b", fontFamily: "Mufan" }}
-          className="text-3xl sm:text-4xl font-bold"
+          className="text-3xl pl-4 sm:text-4xl font-bold"
         >
           Harshit's Portfolio
         </div>
@@ -42,6 +42,7 @@ export const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden sm:flex space-x-10 text-2xl">
+          <button  className="hover:text-amber-400" onClick={()=>{window.location.reload();}}>Home</button>
           <button
             onClick={() => setInstruct(true)}
             className="hover:text-amber-400"
@@ -68,10 +69,11 @@ export const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="sm:hidden flex flex-col items-center bg-amber-900 text-white space-y-4 py-4">
+        <div className="sm:hidden flex flex-col items-center bg-amber-700 text-white space-y-4 py-4">
+          <button  className="hover:text-amber-400" onClick={()=>{window.location.reload();}}>Home</button>
           <button
             onClick={() => setInstruct(true)}
-            className="hover:text-amber-700"
+            className="hover:text-amber-400"
           >
             Instructions
           </button>
@@ -80,7 +82,7 @@ export const Navbar = () => {
               setskills(true);
               setIsMenuOpen(false);
             }}
-            className="hover:text-amber-700"
+            className="hover:text-amber-400"
           >
             Skills
           </button>
@@ -89,7 +91,7 @@ export const Navbar = () => {
           </button>
           <button
             onClick={() => setHireme(true)}
-            className="hover:text-amber-700"
+            className="hover:text-amber-400"
           >
             Hire me
           </button>
