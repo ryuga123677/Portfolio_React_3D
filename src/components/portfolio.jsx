@@ -9,7 +9,7 @@ import myIntroVideo from "../assets/video/myintro.mp4";
 import earcut from "earcut";
 import { AdvancedDynamicTexture, Button, Control } from "@babylonjs/gui";
 import { Projects } from "./Projects";
-import { Card1 } from "./Card";
+import { Card1, Card6 } from "./Card";
 import { Card2 } from "./Card";
 import { Card3 } from "./Card";
 import { Card4 } from "./Card";
@@ -870,7 +870,7 @@ const Portfolio = () => {
       setproject(true);
       handleScroll();
 
-    },7000);
+    },8000);
     const handleScroll = () => {
    
       window.scrollTo({
@@ -897,6 +897,7 @@ const Portfolio = () => {
         {anim && !projectview &&<Card3/>}
         {anim && !projectview &&<Card4/>}
         {anim && !projectview &&<Card5/>}
+        {anim && !projectview &&<Card6/>}
       
       </div>
       { projectview && <Projects />}

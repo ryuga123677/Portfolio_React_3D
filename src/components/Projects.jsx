@@ -4,7 +4,7 @@ import todo from "../assets/project-images/todo.jpg";
 import ghost from "../assets/project-images/ghost.png";
 import snake from "../assets/project-images/snake.png";
 import hospital from "../assets/project-images/hospital.png";
-
+import mouse from "../assets/project-images/mouse.jpg";
 export const Projects = () => {
   const handleclick = (url) => {
     window.open(url);
@@ -14,14 +14,19 @@ export const Projects = () => {
     <>
       <div
         className="flex justify-center text-amber-800 text-5xl font-bold p-5"
-        style={{backgroundColor:"#C59B49"}}
+        style={{ backgroundColor: "#C59B49" }}
       >
         Projects
       </div>
-      <div style={{backgroundColor:"#C59B49"}} className="flex flex-wrap justify-evenly gap-20 p-5 text-black">
+      <div
+        style={{ backgroundColor: "#C59B49" }}
+        className="flex flex-wrap justify-evenly gap-20 p-5 text-black"
+      >
         {/* Card 1 */}
         <button
-          onClick={() => handleclick("https://github.com/ryuga123677/Portfolio_React_3D")}
+          onClick={() =>
+            handleclick("https://github.com/ryuga123677/Portfolio_React_3D")
+          }
           className="flex flex-col sm:w-[45%] md:w-[45%] lg:w-[40%] m-5 p-2 glass-effect rounded-md"
         >
           <img
@@ -32,14 +37,17 @@ export const Projects = () => {
           <div className="mt-4 text-left">
             <div className="text-xl font-bold mb-2">Portfolio Website</div>
             <div className="text-md">
-              React, Tailwind CSS, Javascript, Babylon.js, emailjs, framer-motion
+              React, Tailwind CSS, Javascript, Babylon.js, emailjs,
+              framer-motion
             </div>
           </div>
         </button>
 
         {/* Card 2 */}
         <button
-          onClick={() => handleclick("https://github.com/ryuga123677/Hospital_Management")}
+          onClick={() =>
+            handleclick("https://github.com/ryuga123677/Hospital_Management")
+          }
           className="flex flex-col sm:w-[45%] md:w-[45%] lg:w-[40%] m-5 p-2 glass-effect rounded-md"
         >
           <img
@@ -57,23 +65,30 @@ export const Projects = () => {
 
         {/* Card 3 */}
         <button
-          onClick={() => handleclick("https://github.com/ryuga123677/Dark-night")}
+          onClick={() =>
+            handleclick("https://github.com/ryuga123677/Chat-Todo-app")
+          }
           className="flex flex-col sm:w-[45%] md:w-[45%] lg:w-[40%] m-5 p-2 glass-effect rounded-md"
         >
           <img
-            src={ghost}
-            alt="Ghost Project"
+            src={todo}
+            alt="Todo Project"
             className="object-cover rounded-md h-[300px] w-full"
           />
           <div className="mt-4 text-left">
-            <div className="text-xl font-bold mb-2">Ghost Survival Game</div>
-            <div className="text-md">Blender 3D, Unity, C#</div>
+            <div className="text-xl font-bold mb-2">Work Tracker</div>
+            <div className="text-md">
+              Flutter, Dart, Firebase, Authentication, Firestore,
+              Firebase-Notification
+            </div>
           </div>
         </button>
 
         {/* Card 4 */}
         <button
-          onClick={() => handleclick("https://github.com/ryuga123677/Snake-and-Ladder")}
+          onClick={() =>
+            handleclick("https://github.com/ryuga123677/Snake-and-Ladder")
+          }
           className="flex flex-col sm:w-[45%] md:w-[45%] lg:w-[40%] m-5 p-2 glass-effect rounded-md"
         >
           <img
@@ -89,19 +104,37 @@ export const Projects = () => {
 
         {/* Card 5 */}
         <button
-          onClick={() => handleclick("https://github.com/ryuga123677/Chat-Todo-app")}
+          onClick={() =>
+            handleclick("https://github.com/ryuga123677/Dark-night")
+          }
           className="flex flex-col sm:w-[45%] md:w-[45%] lg:w-[40%] m-5 p-2 glass-effect rounded-md"
         >
           <img
-            src={todo}
-            alt="Todo Project"
+            src={ghost}
+            alt="Ghost Project"
             className="object-cover rounded-md h-[300px] w-full"
           />
           <div className="mt-4 text-left">
-            <div className="text-xl font-bold mb-2">Work Tracker</div>
-            <div className="text-md">
-              Flutter, Dart, Firebase, Authentication, Firestore, Firebase-Notification
-            </div>
+            <div className="text-xl font-bold mb-2">Ghost Survival Game</div>
+            <div className="text-md">Blender 3D, Unity, C#</div>
+          </div>
+        </button>
+
+        {/* Card 6 */}
+        <button
+          onClick={() =>
+            handleclick("https://github.com/ryuga123677/Mouse-runner")
+          }
+          className="flex flex-col sm:w-[45%] md:w-[45%] lg:w-[40%] m-5 p-2 glass-effect rounded-md"
+        >
+          <img
+            src={mouse}
+            alt="Mouse Runner Project"
+            className="object-cover rounded-md h-[300px] w-full"
+          />
+          <div className="mt-4 text-left">
+            <div className="text-xl font-bold mb-2">Mouse Runner (Android)</div>
+            <div className="text-md">Unity ,Blender 3D</div>
           </div>
         </button>
       </div>

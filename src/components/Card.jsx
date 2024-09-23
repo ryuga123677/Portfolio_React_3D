@@ -4,6 +4,7 @@ import todo from "../assets/project-images/todo.jpg";
 import ghost from "../assets/project-images/ghost.png";
 import snake from "../assets/project-images/snake.png";
 import hospital from "../assets/project-images/hospital.png";
+import mouse from "../assets/project-images/mouse.jpg";
 import { motion } from "framer-motion";
 
 export const Card1 = () => {
@@ -145,4 +146,30 @@ export const Card5 = () => {
     </motion.div>
   );
 };
-``
+export const Card6 = () => {
+  return (
+    <motion.div
+    initial={{ y: "0", opacity: 0,scale:0 }}        
+    animate={{ 
+      y: ["0px", "0px", "100vh"],           
+      opacity: [0, 1, 1]   ,
+      scale:[0,1,1]                  
+    }}  
+    transition={{ 
+      delay: 6,                              
+      duration: 3,                         
+      times: [0, 0.33, 1],                   
+    }}
+      className="absolute inset-0 flex justify-center items-center h-screen w-screen"
+    >
+      <div className="flex flex-col text-xl text-white font-bold justify-center items-center h-[300px] w-[500px] sm:h-[250px] sm:w-[400px] m-5 p-2 glass-effect rounded-md">
+        <img
+          src={mouse}
+          alt="Todo Project"
+          className="object-fit h-full w-full rounded-md"
+        />
+        Mouse Runner
+      </div>
+    </motion.div>
+  );
+};
