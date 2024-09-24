@@ -25,7 +25,7 @@ export const Navbar = () => {
         {/* Logo */}
         <div
           style={{ color: "white", fontFamily: "Mufan" }}
-          className="text-6xl pl-4 sm:text-2xl font-bold"
+          className="lg:text-5xl pl-4  font-bold"
         >
           Harshit's Portfolio
         </div>
