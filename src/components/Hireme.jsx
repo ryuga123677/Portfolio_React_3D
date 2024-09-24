@@ -36,7 +36,7 @@ export const Hireme = () => {
 
   return (
     <div  className="w-full max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4" style={{ color: "#d9b99b" }}>Hire Me</h2>
+      <h2 className="text-2xl font-bold text-white mb-4">Hire Me</h2>
 
       {sent && <p className="text-green-500 mb-4">Your message has been sent!</p>}
 
@@ -85,8 +85,8 @@ export const Hireme = () => {
         <div className="flex items-center justify-between ">
           <button
             type="submit"
-            className=" text-white font-bold py-2 px-4 rounded"
-            style={{ backgroundColor: "#F6AC17" }}
+            className=" text-white font-bold py-2 px-4 rounded bg-amber-400"
+            
           >
             Send
           </button>

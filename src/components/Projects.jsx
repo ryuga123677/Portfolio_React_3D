@@ -12,15 +12,16 @@ export const Projects = () => {
 
   return (
     <>
+    <div className="absolute top-[100vh]">
       <div
-        className="flex justify-center text-amber-800 text-5xl font-bold p-5"
+        className="flex justify-center text-white text-5xl font-bold p-5"
         style={{ backgroundColor: "#C59B49" }}
       >
         Projects
       </div>
       <div
         style={{ backgroundColor: "#C59B49" }}
-        className="flex flex-wrap justify-evenly gap-20 p-5 text-black"
+        className="flex flex-wrap justify-evenly gap-20 p-5 text-white"
       >
         {/* Card 1 */}
         <button
@@ -137,6 +138,7 @@ export const Projects = () => {
             <div className="text-md">Unity ,Blender 3D</div>
           </div>
         </button>
+      </div>
       </div>
     </>
   );

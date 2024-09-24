@@ -21,11 +21,11 @@ export const Navbar = () => {
   return (
     <>
       {/* Navbar */}
-      <div className="flex bg-amber-700 items-center justify-between h-[9%] px-4 text-white">
+      <div className="flex bg-amber-500 items-center justify-between h-[9vh] px-4 text-white">
         {/* Logo */}
         <div
-          style={{ color: "#d9b99b", fontFamily: "Mufan" }}
-          className="text-3xl pl-4 sm:text-4xl font-bold"
+          style={{ color: "white", fontFamily: "Mufan" }}
+          className="text-6xl pl-4 sm:text-2xl font-bold"
         >
           Harshit's Portfolio
         </div>
@@ -42,25 +42,25 @@ export const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden sm:flex space-x-10 text-2xl">
-          <button  className="hover:text-amber-400" onClick={()=>{window.location.reload();}}>Home</button>
+          <button  className="hover:text-amber-300" onClick={()=>{window.location.reload();}}>Home</button>
           <button
             onClick={() => setInstruct(true)}
-            className="hover:text-amber-400"
+            className="hover:text-amber-300"
           >
             Instructions
           </button>
           <button
             onClick={() => setskills(true)}
-            className="hover:text-amber-400"
+            className="hover:text-amber-300"
           >
             Skills
           </button>
-          <button onClick={handleResume} className="hover:text-amber-400">
+          <button onClick={handleResume} className="hover:text-amber-300">
             Resume
           </button>
           <button
             onClick={() => setHireme(true)}
-            className="hover:text-amber-400"
+            className="hover:text-amber-300"
           >
             Hire me
           </button>
@@ -69,11 +69,11 @@ export const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="sm:hidden flex flex-col items-center bg-amber-700 text-white space-y-4 py-4">
-          <button  className="hover:text-amber-400" onClick={()=>{window.location.reload();}}>Home</button>
+        <div className="sm:hidden flex flex-col items-center bg-amber-500 text-white space-y-4 py-4">
+          <button  className="hover:text-amber-300" onClick={()=>{window.location.reload();}}>Home</button>
           <button
             onClick={() => setInstruct(true)}
-            className="hover:text-amber-400"
+            className="hover:text-amber-300"
           >
             Instructions
           </button>
@@ -82,16 +82,16 @@ export const Navbar = () => {
               setskills(true);
               setIsMenuOpen(false);
             }}
-            className="hover:text-amber-400"
+            className="hover:text-amber-300"
           >
             Skills
           </button>
-          <button onClick={handleResume} className="hover:text-pink-500">
+          <button onClick={handleResume} className="hover:text-amber-300">
             Resume
           </button>
           <button
             onClick={() => setHireme(true)}
-            className="hover:text-amber-400"
+            className="hover:text-amber-300"
           >
             Hire me
           </button>
@@ -101,7 +101,7 @@ export const Navbar = () => {
       {/* Instructions Modal */}
       {instruct && (
         <div className="absolute top-0 left-0 inset-0 h-full w-full bg-blur bg-opacity-70 flex justify-center items-center z-50">
-          <div className="bg-amber-800 p-6 rounded-lg shadow-lg max-w-md w-full mx-4 relative">
+          <div className="bg-amber-400 p-6 rounded-lg shadow-lg max-w-md w-full mx-4 relative">
             <button
               onClick={() => setInstruct(false)}
               className="absolute top-2 right-2 text-white font-bold"
@@ -116,7 +116,7 @@ export const Navbar = () => {
       {/* Hire Me Modal */}
       {hireme && (
         <div className="absolute top-0 left-0 inset-0 h-full w-full  bg-opacity-70 flex justify-center items-center z-50">
-          <div className="bg-amber-800 p-6 rounded-lg shadow-lg max-w-md w-full mx-4 relative">
+          <div className="bg-amber-400 p-6 rounded-lg shadow-lg max-w-md w-full mx-4 relative">
             <button
               onClick={() => setHireme(false)}
               className="absolute top-2 right-2 text-white font-bold"

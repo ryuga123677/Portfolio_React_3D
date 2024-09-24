@@ -881,13 +881,13 @@ const Portfolio = () => {
   };
   return (
     <>
-      <div className="relative w-full h-full bg-gray-950 ">
+      <div style={{backgroundColor: "#C59B49"}} className="relative w-full h-full ">
         <BabylonScene
           antialias
           onSceneReady={onSceneReady}
           onRender={onRender}
           id="babylon-canvas"
-          className="h-[91vh] w-full flex justify-center"
+          className="h-[92vh] w-full flex justify-center"
         />
         {isVisible && (
           <Buttons onChange={handleclick} onprojectclick={handleproject} />
@@ -900,7 +900,8 @@ const Portfolio = () => {
         {anim && !projectview &&<Card6/>}
       
       </div>
-      { projectview && <Projects />}
+      { projectview && <Projects/>}
+      
     </>
   );
 };
