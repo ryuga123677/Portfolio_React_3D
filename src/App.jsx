@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <div style={{backgroundColor: "#C59B49"}} className="flex flex-col flex-grow h-[100vh]">
+      <div style={{backgroundColor: "#C59B49"}} className="flex flex-col">
         <Navbar />
         <Portfolio/>
        

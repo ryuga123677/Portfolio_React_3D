@@ -12,16 +12,16 @@ export const Projects = () => {
 
   return (
     <>
-    <div className="absolute top-[100vh]">
+    <div className="">
       <div
-        className="flex justify-center text-white text-5xl font-bold p-5"
-        style={{ backgroundColor: "#C59B49" }}
+        className="flex bg-[#560a0a] justify-center text-white text-5xl font-bold p-5"
+        
       >
         Projects
       </div>
       <div
-        style={{ backgroundColor: "#C59B49" }}
-        className="flex flex-wrap justify-evenly gap-20 p-5 text-white"
+       
+        className="flex bg-[repeating-linear-gradient(45deg,#8d3131_0,#8d3131_17px,transparent_0,transparent_50%)] bg-[#640f0f] bg-[length:50px_50px] flex-wrap justify-evenly gap-20 p-5 text-white"
       >
         {/* Card 1 */}
         <button

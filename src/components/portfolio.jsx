@@ -34,11 +34,13 @@ const BabylonScene = ({
     if (!canvas) return;
 
     const engine = new Engine(
+  
       canvas,
       antialias,
       engineOptions,
       adaptToDeviceRatio
     );
+    engine.setHardwareScalingLevel(0.5);
     const scene = new Scene(engine, sceneOptions);
 
     if (scene.isReady()) {
@@ -95,7 +97,7 @@ const Portfolio = () => {
     camera.radius = 5;
     if (isrunning) {
       engine.runRenderLoop(() => {
-        camera.alpha += 0.001;
+        camera.alpha -= 0.001;
         scene.render();
       });
     }
@@ -161,7 +163,7 @@ const Portfolio = () => {
               photo,
               "position.x",
               30,
-              120,
+              60,
               photo.position.x,
               photo.position.x - 10,
               0
@@ -171,7 +173,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               frame.position.x - 10,
               0
@@ -181,7 +183,7 @@ const Portfolio = () => {
               photo,
               "position.y",
               30,
-              120,
+              60,
               photo.position.y,
               photo.position.y - 2,
               0
@@ -191,7 +193,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               frame.position.y - 2,
               0
@@ -203,7 +205,7 @@ const Portfolio = () => {
               photo,
               "position.x",
               30,
-              120,
+              60,
               photo.position.x,
               14.9,
               0
@@ -213,7 +215,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               14.9,
               0
@@ -223,7 +225,7 @@ const Portfolio = () => {
               photo,
               "position.y",
               30,
-              120,
+              60,
               photo.position.y,
               10.45,
               0
@@ -233,7 +235,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               10.45,
               0
@@ -254,7 +256,7 @@ const Portfolio = () => {
               photo,
               "position.x",
               30,
-              120,
+              60,
               photo.position.x,
               photo.position.x - 10,
               0
@@ -264,7 +266,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               frame.position.x - 10,
               0
@@ -276,7 +278,7 @@ const Portfolio = () => {
               photo,
               "position.x",
               30,
-              120,
+              60,
               photo.position.x,
               14.92,
               0
@@ -286,7 +288,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               14.92,
               0
@@ -308,7 +310,7 @@ const Portfolio = () => {
               mouse,
               "position.x",
               30,
-              120,
+              60,
               mouse.position.x,
               mouse.position.x - 10,
               0
@@ -318,7 +320,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               frame.position.x - 10,
               0
@@ -328,7 +330,7 @@ const Portfolio = () => {
               mouse,
               "position.y",
               30,
-              120,
+              60,
               mouse.position.y,
               mouse.position.y - 4,
               0
@@ -338,7 +340,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               frame.position.y - 4,
               0
@@ -350,7 +352,7 @@ const Portfolio = () => {
               mouse,
               "position.x",
               30,
-              120,
+              60,
               mouse.position.x,
               14.97,
               0
@@ -360,7 +362,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               14.97,
               0
@@ -370,7 +372,7 @@ const Portfolio = () => {
               mouse,
               "position.y",
               30,
-              120,
+              60,
               mouse.position.y,
               12.45,
               0
@@ -380,7 +382,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               12.45,
               0
@@ -401,7 +403,7 @@ const Portfolio = () => {
               hospital,
               "position.x",
               30,
-              120,
+              60,
               hospital.position.x,
               hospital.position.x - 10,
               0
@@ -411,7 +413,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               frame.position.x - 10,
               0
@@ -421,7 +423,7 @@ const Portfolio = () => {
               hospital,
               "position.y",
               30,
-              120,
+              60,
               hospital.position.y,
               hospital.position.y - 2,
               0
@@ -431,7 +433,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               frame.position.y - 2,
               0
@@ -443,7 +445,7 @@ const Portfolio = () => {
               hospital,
               "position.x",
               30,
-              120,
+              60,
               hospital.position.x,
               14.92,
               0
@@ -453,7 +455,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               14.92,
               0
@@ -463,7 +465,7 @@ const Portfolio = () => {
               hospital,
               "position.y",
               30,
-              120,
+              60,
               hospital.position.y,
               10.41,
               0
@@ -473,7 +475,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               10.41,
               0
@@ -494,7 +496,7 @@ const Portfolio = () => {
               hospital,
               "position.x",
               30,
-              120,
+              60,
               hospital.position.x,
               hospital.position.x - 10,
               0
@@ -504,7 +506,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               frame.position.x - 10,
               0
@@ -514,7 +516,7 @@ const Portfolio = () => {
               hospital,
               "position.y",
               30,
-              120,
+              60,
               hospital.position.y,
               hospital.position.y - 2,
               0
@@ -524,7 +526,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               frame.position.y - 2,
               0
@@ -536,7 +538,7 @@ const Portfolio = () => {
               hospital,
               "position.x",
               30,
-              120,
+              60,
               hospital.position.x,
               14.94,
               0
@@ -546,7 +548,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               14.94,
               0
@@ -556,7 +558,7 @@ const Portfolio = () => {
               hospital,
               "position.y",
               30,
-              120,
+              60,
               hospital.position.y,
               10.46,
               0
@@ -566,7 +568,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               10.46,
               0
@@ -588,7 +590,7 @@ const Portfolio = () => {
               chair,
               "position.x",
               30,
-              120,
+              60,
               chair.position.x,
               chair.position.x + 2,
               0
@@ -598,7 +600,7 @@ const Portfolio = () => {
               chairpipe,
               "position.x",
               30,
-              120,
+              60,
               chairpipe.position.x,
               chairpipe.position.x + 2,
               0
@@ -608,7 +610,7 @@ const Portfolio = () => {
               chairbase,
               "position.x",
               30,
-              120,
+              60,
               chairbase.position.x,
               chairbase.position.x + 2,
               0
@@ -620,7 +622,7 @@ const Portfolio = () => {
               chair,
               "position.x",
               30,
-              120,
+              60,
               chair.position.x,
               chair.position.x - 2,
               0
@@ -630,7 +632,7 @@ const Portfolio = () => {
               chairpipe,
               "position.x",
               30,
-              120,
+              60,
               chairpipe.position.x,
               chairpipe.position.x - 2,
               0
@@ -640,7 +642,7 @@ const Portfolio = () => {
               chairbase,
               "position.x",
               30,
-              120,
+              60,
               chairbase.position.x,
               chairbase.position.x - 2,
               0
@@ -681,7 +683,7 @@ const Portfolio = () => {
           guiButton.top = "300px";
           guiButton.color = "white";
           guiButton.cornerRadius = 5;
-          guiButton.background = "#F6AC17";
+          guiButton.background = "#853824";
 
           guiButton.onPointerUpObservable.add(() => {
             ANote0VideoVidTex.video.pause();
@@ -823,7 +825,7 @@ const Portfolio = () => {
       guiButton.top = "30px";
       guiButton.color = "white";
       guiButton.cornerRadius = 5;
-      guiButton.background = "#F6AC17";
+      guiButton.background = "#853824";
       guiButton.onPointerUpObservable.add(() => {
         window.open(url, "newtab", "status=1,fullscreen=1");
         guiCanvas.dispose();
@@ -837,11 +839,11 @@ const Portfolio = () => {
       closeButton.height = "40px";
       closeButton.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
       closeButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
-      closeButton.top = "0px";
-      closeButton.left="97px"
+      closeButton.top = "30px";
+      closeButton.left="100px"
    
      
-      closeButton.color = "white"; // Color of the "X"
+      closeButton.color = "#853824"; // Color of the "X"
       closeButton.background = "transparent"; // Make background transparent
       closeButton.fontSize = "20px"; // Adjust font size as needed
     
@@ -887,7 +889,7 @@ const Portfolio = () => {
           onSceneReady={onSceneReady}
           onRender={onRender}
           id="babylon-canvas"
-          className="h-[92vh] w-full flex justify-center"
+          className="h-[91vh] w-full flex justify-center"
         />
         {isVisible && (
           <Buttons onChange={handleclick} onprojectclick={handleproject} />

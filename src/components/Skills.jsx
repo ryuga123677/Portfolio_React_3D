@@ -3,17 +3,17 @@ import { FaTimes } from "react-icons/fa";
 export const Skills = ({ onchange }) => {
   return (
     <>
-      <div className="flex justify-end m-2 ">
-        {" "}
+      <div className="flex justify-end bg-[#853824] ">
+      
         <button
           onClick={() => onchange(false)}
-          className="hover:text-pink-500 text-white"
+          className="hover:text-amber-500 bg-[#853824] text-white"
         >
           <FaTimes size={25} />
         </button>
       </div>
 
-      <div className="flex bg-amber-400 lg:min-h-screen justify-center sm:h-max text-white text-xl">
+      <div className="flex bg-[#853824] lg:min-h-screen justify-center sm:h-max text-white text-xl">
         <div className="flex flex-col gap-2">
           <h3 align="left">Connect with me:</h3>
           <p align="left">

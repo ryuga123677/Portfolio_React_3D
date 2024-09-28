@@ -85,7 +85,7 @@ export const Hireme = () => {
         <div className="flex items-center justify-between ">
           <button
             type="submit"
-            className=" text-white font-bold py-2 px-4 rounded bg-amber-400"
+            className=" text-white font-bold py-2 px-4 rounded bg-[#853824] hover:scale-125 transition-all"
             
           >
             Send
