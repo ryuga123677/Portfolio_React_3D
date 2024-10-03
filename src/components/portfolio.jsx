@@ -4,6 +4,7 @@ import "@babylonjs/loaders";
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/inspector";
 import { Buttons } from "./Buttons";
+import ChangingText from "./ChangingText"
 //import "@babylonjs/gui";
 import myIntroVideo from "../assets/video/myintro.mp4";
 import earcut from "earcut";
@@ -884,6 +885,7 @@ const Portfolio = () => {
   return (
     <>
       <div style={{backgroundColor: "#C59B49"}} className="relative w-full h-full ">
+    
         <BabylonScene
           antialias
           onSceneReady={onSceneReady}
@@ -891,9 +893,11 @@ const Portfolio = () => {
           id="babylon-canvas"
           className="h-[91vh] w-full flex justify-center"
         />
+         <ChangingText/>
         {isVisible && (
           <Buttons onChange={handleclick} onprojectclick={handleproject} />
         )}
+        
         {anim && !projectview && <Card1/>}
         {anim && !projectview &&<Card2/>}
         {anim && !projectview &&<Card3/>}
