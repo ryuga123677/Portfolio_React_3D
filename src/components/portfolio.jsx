@@ -75,6 +75,7 @@ const BabylonScene = ({
   ]);
 
   return <canvas className="" ref={reactCanvas} {...rest} />;
+  
 };
 
 const Portfolio = () => {
