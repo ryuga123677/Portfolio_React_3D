@@ -28,7 +28,7 @@ export const Navbar = () => {
        
           className="pl-4 flex flex-col font-bold"
         >
-          <div className="lg:text-4xl md:text-2xl font-bold">  Harshit's Portfolio</div>
+          <div className="lg:text-4xl sm:text-2xl font-bold">  Harshit's Portfolio</div>
         
         <ChangingText/>
         </div>
