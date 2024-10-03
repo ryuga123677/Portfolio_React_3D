@@ -4,7 +4,6 @@ import "@babylonjs/loaders";
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/inspector";
 import { Buttons } from "./Buttons";
-import ChangingText from "./ChangingText"
 //import "@babylonjs/gui";
 import myIntroVideo from "../assets/video/myintro.mp4";
 import earcut from "earcut";
@@ -894,7 +893,7 @@ const Portfolio = () => {
           id="babylon-canvas"
           className="h-[91vh] w-full flex justify-center"
         />
-         <ChangingText/>
+      
         {isVisible && (
           <Buttons onChange={handleclick} onprojectclick={handleproject} />
         )}

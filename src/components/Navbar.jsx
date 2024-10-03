@@ -3,6 +3,7 @@ import { Insrtuctions } from "./Insrtuctions";
 import { Hireme } from "./Hireme";
 import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for hamburger and close
 import { Skills } from "./Skills";
+import ChangingText from "./ChangingText";
 
 export const Navbar = () => {
   const [instruct, setInstruct] = useState(false);
@@ -25,9 +26,11 @@ export const Navbar = () => {
         {/* Logo */}
         <div
        
-          className="text-4xl pl-4  font-bold"
+          className="pl-4 flex flex-col font-bold"
         >
-          Harshit's Portfolio
+          <div className="lg:text-4xl md:text-2xl font-bold">  Harshit's Portfolio</div>
+        
+        <ChangingText/>
         </div>
 
         {/* Hamburger Icon for Mobile */}
