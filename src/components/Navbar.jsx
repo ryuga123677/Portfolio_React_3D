@@ -26,9 +26,9 @@ export const Navbar = () => {
         {/* Logo */}
         <div
        
-          className="pl-4 flex flex-col"
+          className="pl-4 lg:text-4xl flex flex-col"
         >
-          <div className="lg:text-4xl sm:text-2xl mt-1 font-bold">  Harshit's Portfolio</div>
+          <div className="mt-1">Harshit's Portfolio</div>
         
         <ChangingText/>
         </div>

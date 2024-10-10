@@ -22,7 +22,7 @@ const ChangingText = () => {
   return (
     <div
       className={`text-lg text-white bg-transparent transition-all duration-500 ${
-        isBlurred ? "blur-sm opacity-50" : "blur-0 opacity-100"
+        isBlurred ? "blur-sm opacity-20" : "blur-0 opacity-100"
       }`}
     >
       {texts[currentText]}
