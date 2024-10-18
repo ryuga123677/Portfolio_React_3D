@@ -40,7 +40,17 @@ const BabylonScene = ({
       engineOptions,
       adaptToDeviceRatio
     );
-    engine.setHardwareScalingLevel(0.5);
+    const isMobile = () => {
+      return /Mobi|Android/i.test(navigator.userAgent);
+    };
+    
+    
+    if (isMobile()) {
+      engine.setHardwareScalingLevel(0.8); 
+    } else {
+      engine.setHardwareScalingLevel(0.9);   
+    }
+    engine.setHardwareScalingLevel(1);
     const scene = new Scene(engine, sceneOptions);
 
     if (scene.isReady()) {
