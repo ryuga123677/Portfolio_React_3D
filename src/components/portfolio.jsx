@@ -46,7 +46,7 @@ const BabylonScene = ({
     
     
     if (isMobile()) {
-      engine.setHardwareScalingLevel(0.8); 
+      engine.setHardwareScalingLevel(1); 
     } else {
       engine.setHardwareScalingLevel(0.9);   
     }
