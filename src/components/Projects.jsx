@@ -47,19 +47,19 @@ export const Projects = () => {
         {/* Card 2 */}
         <button
           onClick={() =>
-            handleclick("https://github.com/ryuga123677/Hospital_Management")
+            handleclick("https://github.com/ryuga123677/Jobify-Frontend")
           }
           className="flex flex-col sm:w-[45%] md:w-[45%] lg:w-[40%] m-5 p-2 glass-effect rounded-md"
         >
           <img
             src={hospital}
-            alt="Hospital Project"
+            alt="Jobify Project"
             className="object-cover rounded-md h-[300px] w-full"
           />
           <div className="mt-4 text-left">
-            <div className="text-xl font-bold mb-2">HealthCare System</div>
+            <div className="text-xl font-bold mb-2">Jobify</div>
             <div className="text-md">
-              MERN stack, MUI, framer-motion, Multer, Cloudinary, JWT, Router
+              MERN stack, Tailwind css, framer-motion, Multer, Cloudinary, JWT, Router
             </div>
           </div>
         </button>

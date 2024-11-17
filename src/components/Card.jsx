@@ -57,7 +57,7 @@ export const Card2 = () => {
           alt="Hospital Project"
           className="object-fit h-full w-full rounded-md"
         />
-        HealthCare System
+        Jobify
       </div>
     </motion.div>
   );
