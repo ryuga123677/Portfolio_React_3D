@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Creates the frosted glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Optional: add a subtle border */
+  }
+  @font-face {
+    font-family: 'Mufan';
+    src: url('../public/fonts/MufanPFS.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  body{
+   backgroundColor: "#C59B49"
+  }

@@ -1,11 +1,20 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Engine, Scene } from "@babylonjs/core";
 import "@babylonjs/loaders";
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/inspector";
+import { Buttons } from "./Buttons";
 //import "@babylonjs/gui";
+import myIntroVideo from "../assets/video/myintro.mp4";
 import earcut from "earcut";
 import { AdvancedDynamicTexture, Button, Control } from "@babylonjs/gui";
+import { Projects } from "./Projects";
+import { Card1, Card6 } from "./Card";
+import { Card2 } from "./Card";
+import { Card3 } from "./Card";
+import { Card4 } from "./Card";
+import { Card5 } from "./Card";
+
 window.earcut = earcut;
 
 const BabylonScene = ({
@@ -25,11 +34,23 @@ const BabylonScene = ({
     if (!canvas) return;
 
     const engine = new Engine(
+  
       canvas,
       antialias,
       engineOptions,
       adaptToDeviceRatio
     );
+    const isMobile = () => {
+      return /Mobi|Android/i.test(navigator.userAgent);
+    };
+    
+    
+    if (isMobile()) {
+      engine.setHardwareScalingLevel(1); 
+    } else {
+      engine.setHardwareScalingLevel(0.9);   
+    }
+    engine.setHardwareScalingLevel(1);
     const scene = new Scene(engine, sceneOptions);
 
     if (scene.isReady()) {
@@ -62,10 +83,16 @@ const BabylonScene = ({
     onSceneReady,
   ]);
 
-  return <canvas ref={reactCanvas} {...rest} />;
+  return <canvas className="" ref={reactCanvas} {...rest} />;
+  
 };
 
 const Portfolio = () => {
+  const [isrunning, setisRunning] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
+  const [anim, setanim] = useState(false);
+  const [projectview, setproject] = useState(false);
+  const scrollContainerRef = useRef(null);
   const onSceneReady = async (scene) => {
     const engine = scene.getEngine();
     const canvas = scene.getEngine().getRenderingCanvas();
@@ -79,6 +106,13 @@ const Portfolio = () => {
     );
     camera.attachControl(canvas, true);
     camera.radius = 5;
+    if (isrunning) {
+      engine.runRenderLoop(() => {
+        camera.alpha -= 0.001;
+        scene.render();
+      });
+    }
+
     var check = false;
     let lampon = false;
     const lamp = new BABYLON.PointLight(
@@ -88,6 +122,7 @@ const Portfolio = () => {
     );
     lamp.diffuse = new BABYLON.Color3(1, 1, 0);
     lamp.intensity = 0;
+    // createInformationbar();
 
     const planeOpts = {
       height: 2.5,
@@ -106,9 +141,21 @@ const Portfolio = () => {
     BABYLON.SceneLoader.ImportMeshAsync(
       null,
       "./models/",
-      "portfolio.glb",
+      "portfolio-1.glb",
       scene
     ).then(() => {
+      BABYLON.NodeMaterial.ParseFromSnippetAsync("#ZJ8KVZ#4", scene).then(
+        function (nodeMaterial) {
+          // Find the mesh by its name
+          //const wall3 = scene.getMeshByName("wall3");
+          // if (wall3) {
+          // Assign the node material to the wall3 mesh
+          //  wall3.material = nodeMaterial;
+          // } else {
+          //   console.error("Mesh with name 'wall3' not found!");
+          // }
+        }
+      );
       scene.onPointerDown = function castRay() {
         const ray = scene.createPickingRay(
           scene.pointerX,
@@ -127,7 +174,7 @@ const Portfolio = () => {
               photo,
               "position.x",
               30,
-              120,
+              60,
               photo.position.x,
               photo.position.x - 10,
               0
@@ -137,7 +184,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               frame.position.x - 10,
               0
@@ -147,7 +194,7 @@ const Portfolio = () => {
               photo,
               "position.y",
               30,
-              120,
+              60,
               photo.position.y,
               photo.position.y - 2,
               0
@@ -157,7 +204,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               frame.position.y - 2,
               0
@@ -169,7 +216,7 @@ const Portfolio = () => {
               photo,
               "position.x",
               30,
-              120,
+              60,
               photo.position.x,
               14.9,
               0
@@ -179,7 +226,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               14.9,
               0
@@ -189,7 +236,7 @@ const Portfolio = () => {
               photo,
               "position.y",
               30,
-              120,
+              60,
               photo.position.y,
               10.45,
               0
@@ -199,7 +246,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               10.45,
               0
@@ -207,7 +254,8 @@ const Portfolio = () => {
           }
 
           createGUIButton(
-            "https://github.com/ryuga123677/mobile-car-simulation","Open Project"
+            "https://github.com/ryuga123677/mobile-car-simulation",
+            "Open Project"
           );
         }
         if (hit.pickedMesh.name == "todo.001" && hit.pickedMesh) {
@@ -219,7 +267,7 @@ const Portfolio = () => {
               photo,
               "position.x",
               30,
-              120,
+              60,
               photo.position.x,
               photo.position.x - 10,
               0
@@ -229,7 +277,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               frame.position.x - 10,
               0
@@ -241,7 +289,7 @@ const Portfolio = () => {
               photo,
               "position.x",
               30,
-              120,
+              60,
               photo.position.x,
               14.92,
               0
@@ -251,14 +299,17 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               14.92,
               0
             );
           }
 
-          createGUIButton("https://github.com/ryuga123677/Chat-Todo-app","Open Project");
+          createGUIButton(
+            "https://github.com/ryuga123677/Chat-Todo-app",
+            "Open Project"
+          );
         }
         if (hit.pickedMesh.name == "mouse.001" && hit.pickedMesh) {
           const mouse = hit.pickedMesh;
@@ -270,7 +321,7 @@ const Portfolio = () => {
               mouse,
               "position.x",
               30,
-              120,
+              60,
               mouse.position.x,
               mouse.position.x - 10,
               0
@@ -280,7 +331,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               frame.position.x - 10,
               0
@@ -290,7 +341,7 @@ const Portfolio = () => {
               mouse,
               "position.y",
               30,
-              120,
+              60,
               mouse.position.y,
               mouse.position.y - 4,
               0
@@ -300,7 +351,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               frame.position.y - 4,
               0
@@ -312,7 +363,7 @@ const Portfolio = () => {
               mouse,
               "position.x",
               30,
-              120,
+              60,
               mouse.position.x,
               14.97,
               0
@@ -322,7 +373,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               14.97,
               0
@@ -332,7 +383,7 @@ const Portfolio = () => {
               mouse,
               "position.y",
               30,
-              120,
+              60,
               mouse.position.y,
               12.45,
               0
@@ -342,14 +393,17 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               12.45,
               0
             );
           }
 
-          createGUIButton("https://github.com/ryuga123677/Mouse-runner","Open Project");
+          createGUIButton(
+            "https://github.com/ryuga123677/Mouse-runner",
+            "Open Project"
+          );
         }
         if (hit.pickedMesh.name == "hospital" && hit.pickedMesh) {
           const hospital = hit.pickedMesh;
@@ -360,7 +414,7 @@ const Portfolio = () => {
               hospital,
               "position.x",
               30,
-              120,
+              60,
               hospital.position.x,
               hospital.position.x - 10,
               0
@@ -370,7 +424,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               frame.position.x - 10,
               0
@@ -380,7 +434,7 @@ const Portfolio = () => {
               hospital,
               "position.y",
               30,
-              120,
+              60,
               hospital.position.y,
               hospital.position.y - 2,
               0
@@ -390,7 +444,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               frame.position.y - 2,
               0
@@ -402,7 +456,7 @@ const Portfolio = () => {
               hospital,
               "position.x",
               30,
-              120,
+              60,
               hospital.position.x,
               14.92,
               0
@@ -412,7 +466,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               14.92,
               0
@@ -422,7 +476,7 @@ const Portfolio = () => {
               hospital,
               "position.y",
               30,
-              120,
+              60,
               hospital.position.y,
               10.41,
               0
@@ -432,14 +486,17 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               10.41,
               0
             );
           }
 
-          createGUIButton("https://github.com/ryuga123677/Hospital_Management","Open Project");
+          createGUIButton(
+            "https://github.com/ryuga123677/Hospital_Management",
+            "Open Project"
+          );
         }
         if (hit.pickedMesh.name == "Screenshot (543)" && hit.pickedMesh) {
           const hospital = hit.pickedMesh;
@@ -450,7 +507,7 @@ const Portfolio = () => {
               hospital,
               "position.x",
               30,
-              120,
+              60,
               hospital.position.x,
               hospital.position.x - 10,
               0
@@ -460,7 +517,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               frame.position.x - 10,
               0
@@ -470,7 +527,7 @@ const Portfolio = () => {
               hospital,
               "position.y",
               30,
-              120,
+              60,
               hospital.position.y,
               hospital.position.y - 2,
               0
@@ -480,7 +537,7 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               frame.position.y - 2,
               0
@@ -492,7 +549,7 @@ const Portfolio = () => {
               hospital,
               "position.x",
               30,
-              120,
+              60,
               hospital.position.x,
               14.94,
               0
@@ -502,7 +559,7 @@ const Portfolio = () => {
               frame,
               "position.x",
               30,
-              120,
+              60,
               frame.position.x,
               14.94,
               0
@@ -512,7 +569,7 @@ const Portfolio = () => {
               hospital,
               "position.y",
               30,
-              120,
+              60,
               hospital.position.y,
               10.46,
               0
@@ -522,14 +579,17 @@ const Portfolio = () => {
               frame,
               "position.y",
               30,
-              120,
+              60,
               frame.position.y,
               10.46,
               0
             );
           }
 
-          createGUIButton("https://github.com/ryuga123677/Snake-and-Ladder","Open Project");
+          createGUIButton(
+            "https://github.com/ryuga123677/Snake-and-Ladder",
+            "Open Project"
+          );
         }
         if (hit.pickedMesh.name == "chair" && hit.pickedMesh) {
           var chair = scene.getMeshByName("chair");
@@ -541,7 +601,7 @@ const Portfolio = () => {
               chair,
               "position.x",
               30,
-              120,
+              60,
               chair.position.x,
               chair.position.x + 2,
               0
@@ -551,7 +611,7 @@ const Portfolio = () => {
               chairpipe,
               "position.x",
               30,
-              120,
+              60,
               chairpipe.position.x,
               chairpipe.position.x + 2,
               0
@@ -561,7 +621,7 @@ const Portfolio = () => {
               chairbase,
               "position.x",
               30,
-              120,
+              60,
               chairbase.position.x,
               chairbase.position.x + 2,
               0
@@ -573,7 +633,7 @@ const Portfolio = () => {
               chair,
               "position.x",
               30,
-              120,
+              60,
               chair.position.x,
               chair.position.x - 2,
               0
@@ -583,7 +643,7 @@ const Portfolio = () => {
               chairpipe,
               "position.x",
               30,
-              120,
+              60,
               chairpipe.position.x,
               chairpipe.position.x - 2,
               0
@@ -593,7 +653,7 @@ const Portfolio = () => {
               chairbase,
               "position.x",
               30,
-              120,
+              60,
               chairbase.position.x,
               chairbase.position.x - 2,
               0
@@ -611,7 +671,7 @@ const Portfolio = () => {
           var ANote0VideoMat = new BABYLON.StandardMaterial("m", scene);
           var ANote0VideoVidTex = new BABYLON.VideoTexture(
             "vidtex",
-            "src/assets/video/myintro.mp4",
+            myIntroVideo,
             scene
           );
           ANote0VideoMat.diffuseTexture = ANote0VideoVidTex;
@@ -620,8 +680,8 @@ const Portfolio = () => {
           ANote0Video.material = ANote0VideoMat;
 
           camera.target = ANote0Video;
-          bulb3.intensity = 1;
-          bulb2.intensity = 1;
+
+          pointLight.intensity = 1;
 
           ANote0VideoVidTex.video.play();
 
@@ -634,27 +694,27 @@ const Portfolio = () => {
           guiButton.top = "300px";
           guiButton.color = "white";
           guiButton.cornerRadius = 5;
-          guiButton.background = "green";
+          guiButton.background = "#853824";
 
           guiButton.onPointerUpObservable.add(() => {
             ANote0VideoVidTex.video.pause();
             guiCanvas.dispose();
             check = false;
             camera.target = new BABYLON.Vector3(1, 8.5, -38);
-            bulb3.intensity = 500;
-            bulb2.intensity = 100;
+
+            pointLight.intensity = 800;
           });
 
           guiButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
           guiCanvas.addControl(guiButton);
-        }  if (hit.pickedMesh.name == "resume" && hit.pickedMesh) {
+        }
+        if (hit.pickedMesh.name == "resume" && hit.pickedMesh) {
           const hospital = hit.pickedMesh;
-        
-        
+
           createGUIButton(
-            "https://drive.google.com/file/d/1wN6vqSVbpScyIGPUJFxk7gICAJ0R20BC/view?usp=drivesdk/ ","Open Resume"
+            "https://drive.google.com/file/d/1wN6vqSVbpScyIGPUJFxk7gICAJ0R20BC/view?usp=drivesdk/ ",
+            "Open Resume"
           );
-           
         }
         if (
           hit.pickedMesh.name == "Lamp" &&
@@ -698,9 +758,10 @@ const Portfolio = () => {
         "yellowMaterial",
         scene
       );
-      yellowMaterial.diffuseColor = BABYLON.Color3.White();
 
-      yellowMaterial.roughness = 1;
+      yellowMaterial.diffuseColor = BABYLON.Color3.Black;
+
+      yellowMaterial.roughness = 2;
       myText.material = yellowMaterial;
     };
 
@@ -708,43 +769,37 @@ const Portfolio = () => {
 
     createtext("Projects", -14.92, 13.98, -36.98, 0.5, -Math.PI / 2);
     createtext("Resume", 0.51, 13.72, -19.81, 0.5, 2 * Math.PI);
-    scene.debugLayer.show({
-      embedMode: true,
-    });
+    // scene.debugLayer.show({
+    //   embedMode: true,
+    // });
 
     camera.lowerRadiusLimit = 0;
-     camera.upperRadiusLimit = 8;
+    camera.upperRadiusLimit = 8;
 
-    // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-    var bulb1 = new BABYLON.PointLight(
-      "light1",
-      new BABYLON.Vector3(-12.95, 14.73, -23.0),
+    const pointLight = new BABYLON.PointLight(
+      "pointLight",
+      new BABYLON.Vector3(0.1, 15.62, -35.2), // Position of the light
+      // Light decay
       scene
     );
-    var emitterPosition = new BABYLON.Vector3(10, 1, 10);
-    var emitterMesh = new BABYLON.Mesh("emitterMesh", scene);
-    emitterMesh.position = new BABYLON.Vector3(0, 0, 1); // Set the initial position of the emitter mesh
+    pointLight.intensity = 800;
+    pointLight.diffuse = new BABYLON.Color3(
+      0.9803921568627451,
+      0.9882352941176471,
+      0.6431372549019608
+    );
+    const spotLight = new BABYLON.SpotLight(
+      "areaLight",
+      new BABYLON.Vector3(-7.02, 14.32, -36.68), // Position of the light
+      new BABYLON.Vector3(-0.83, -0.56, 0), // Direction pointing down
+      127.7, // Wide angle to cover a large area
+      2, // Light decay
+      scene
+    );
+    spotLight.intensity = 500;
+    spotLight.diffuse = new BABYLON.Color3(0.5647058823529412, 0.5803921568627451, 0.1843137254901961);
 
-    // Default intensity is 1. Let's dim the light a small amount
-    bulb1.intensity = 150;
-    var bulb2 = new BABYLON.PointLight(
-      "light2",
-      new BABYLON.Vector3(0.6, 15.09, -47.06),
-      scene
-    );
-    bulb2.intensity = 200;
-    var bulb3 = new BABYLON.PointLight(
-      "light3",
-      new BABYLON.Vector3(0.09, 15.63, -35.14),
-      scene
-    );
-    bulb3.intensity = 500;
-    var bulb4 = new BABYLON.PointLight(
-      "light4",
-      new BABYLON.Vector3(1.38, 15.79, -46.75),
-      scene
-    );
-    bulb4.intensity = 300;
+
 
     function moveMesh(mesh, x, y = null) {
       BABYLON.Animation.CreateAndStartAnimation(
@@ -771,45 +826,99 @@ const Portfolio = () => {
       }
     }
 
-    function createGUIButton(url,name) {
-      const guiCanvas =
-        AdvancedDynamicTexture.CreateFullscreenUI("UI");
-      const guiButton =Button.CreateSimpleButton(
-        "guiButton",
-        name
-      );
+    function createGUIButton(url, name) {
+      const guiCanvas = AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+      // Main button
+      const guiButton = Button.CreateSimpleButton("guiButton", name);
       guiButton.width = "150px";
       guiButton.height = "40px";
-      guiButton.top = "300px";
+      guiButton.top = "30px";
       guiButton.color = "white";
       guiButton.cornerRadius = 5;
-      guiButton.background = "green";
+      guiButton.background = "#853824";
       guiButton.onPointerUpObservable.add(() => {
         window.open(url, "newtab", "status=1,fullscreen=1");
-            guiCanvas.dispose();
+        guiCanvas.dispose();
       });
-      guiButton.verticalAlignment =
-       Control.VERTICAL_ALIGNMENT_CENTER;
+      guiButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+      guiButton.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
       guiCanvas.addControl(guiButton);
+    //cloose button
+      const closeButton = Button.CreateSimpleButton("closeButton", "X"); // Use "X" as button text
+      closeButton.width = "40px";
+      closeButton.height = "40px";
+      closeButton.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+      closeButton.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+      closeButton.top = "30px";
+      closeButton.left="100px"
+   
+     
+      closeButton.color = "#853824"; // Color of the "X"
+      closeButton.background = "transparent"; // Make background transparent
+      closeButton.fontSize = "20px"; // Adjust font size as needed
+    
+      closeButton.onPointerUpObservable.add(() => {
+        guiCanvas.dispose(); // Dispose of the GUI when the close button is clicked
+      });
+    
+      guiCanvas.addControl(closeButton); 
     }
-
-
+    
+    
   };
 
   const onRender = (scene) => {
     // Custom render logic
   };
+  const handleclick = () => {
+    setisRunning(false);
+    setIsVisible(false);
+  };
+  const handleproject = () => {
+    setanim(true);
 
+    setTimeout(function(){
+      setanim(false);
+      setproject(true);
+      handleScroll();
+
+    },8000);
+    const handleScroll = () => {
+   
+      window.scrollTo({
+        top: 1000, 
+        behavior: "smooth", 
+      });
+    };
+  };
   return (
-    <div style={{ flex: 1, display: "flex" }}>
-      <BabylonScene
-        antialias
-        onSceneReady={onSceneReady}
-        onRender={onRender}
-        id="babylon-canvas"
-        style={{ width: "100vw", height: "100vh" }}
-      />
-    </div>
+    <>
+      <div style={{backgroundColor: "#C59B49"}} className="relative w-full h-full ">
+    
+        <BabylonScene
+          antialias
+          onSceneReady={onSceneReady}
+          onRender={onRender}
+          id="babylon-canvas"
+          className="h-[91vh] w-full flex justify-center"
+        />
+      
+        {isVisible && (
+          <Buttons onChange={handleclick} onprojectclick={handleproject} />
+        )}
+        
+        {anim && !projectview && <Card1/>}
+        {anim && !projectview &&<Card2/>}
+        {anim && !projectview &&<Card3/>}
+        {anim && !projectview &&<Card4/>}
+        {anim && !projectview &&<Card5/>}
+        {anim && !projectview &&<Card6/>}
+      
+      </div>
+      { projectview && <Projects/>}
+      
+    </>
   );
 };
 
