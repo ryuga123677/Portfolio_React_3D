@@ -765,7 +765,7 @@ const Portfolio = () => {
       myText.material = yellowMaterial;
     };
 
-    createtext("Harshit's Tech Stack", 15, 14.57, -36.47);
+    createtext("Work Experience", 15, 12.87, -37);
 
     createtext("Projects", -14.92, 13.98, -36.98, 0.5, -Math.PI / 2);
     createtext("Resume", 0.51, 13.72, -19.81, 0.5, 2 * Math.PI);
