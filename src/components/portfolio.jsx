@@ -1110,16 +1110,12 @@ if (coreVisible && coreSize < CORE_MAX_SIZE) {
           ANote0Video.material = ANote0VideoMat;
 
           scene.activeCamera.target = ANote0Video;
-          const DEG120 = BABYLON.Tools.ToRadians(160);
+      
           const DEG60=BABYLON.Tools.ToRadians(60);
           // ALPHA (horizontal rotation)
 scene.activeCamera.lowerAlphaLimit = -DEG60;
 scene.activeCamera.upperAlphaLimit = DEG60;
 
-// BETA (vertical rotation)
-// beta must stay between (0, π)
-scene.activeCamera.lowerBetaLimit = BABYLON.Tools.ToRadians(10);   // avoid flippingscene.activeCameraa.upperBetaLimit = DEG120;
-scene.activeCamera.upperBetaLimit = DEG120;
 
 
           pointLight.intensity = 2;
@@ -1143,6 +1139,9 @@ scene.activeCamera.upperBetaLimit = DEG120;
             check = false;
             scene.activeCamera.target = new BABYLON.Vector3(1, 8.5, -38);
             scene.activeCamera.alpha=0;
+            scene.activeCamera.lowerAlphaLimit = null;
+            scene.activeCamera.upperAlphaLimit = null;
+      
 
             pointLight.intensity = 800;
           });
