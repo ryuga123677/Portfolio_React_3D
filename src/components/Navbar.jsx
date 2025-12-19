@@ -19,7 +19,7 @@ export const Navbar = () => {
   return (
     <>
       {/* Navbar */}
-      <div className="flex bg-black items-center justify-between h-[9vh] px-4 text-white">
+      <div className="flex bg-[#000011] items-center justify-between h-[9vh] px-4 text-white">
         {/* Logo */}
         <div className="pl-4 lg:text-4xl flex flex-col">
           <div className="mt-1">Harshit's Portfolio</div>
@@ -77,7 +77,7 @@ export const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="sm:hidden flex flex-col items-center bg-black text-white space-y-4 py-4">
+        <div className="sm:hidden flex flex-col items-center bg-[#000011] text-white space-y-4 py-4">
           <button
             className="hover:text-amber-300 hover:scale-125 transition-all"
             onClick={() => { goTo("/"); }}

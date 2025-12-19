@@ -16,7 +16,7 @@ export const Projects = () => {
     <div className="">
    
       <div
-        className="flex bg-black justify-center text-white text-5xl font-bold p-5"
+        className="flex bg-[#000011] justify-center text-white text-5xl font-bold p-5"
         
       >
         Projects
