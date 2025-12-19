@@ -126,7 +126,7 @@ const Portfolio = () => {
       let numStars;
       const isMobile = /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
       if (isMobile) {
-        numStars = 200;
+        numStars = 100;
       } else {
         numStars = 600;
       }
@@ -243,8 +243,8 @@ const Portfolio = () => {
     camera.setTarget(BABYLON.Vector3.Zero());
     camera.attachControl(canvas, false); // Don't allow manual control during animation
 
-    // Set black background
-    scene.clearColor = new BABYLON.Color3(0, 0, 0);
+    // Set dark blue-black background (#000011)
+    scene.clearColor = BABYLON.Color3.FromInts(0, 0, 17);
     scene.activeCamera = camera;
 
     // ==============================
