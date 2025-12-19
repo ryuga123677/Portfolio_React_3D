@@ -97,7 +97,11 @@ export const Navbar = () => {
             Skills
           </button>
           <button
-            onClick={() => goTo("/resume")}
+            onClick={() => window.open(
+              "https://drive.google.com/file/d/1wN6vqSVbpScyIGPUJFxk7gICAJ0R20BC/view?usp=drivesdk/",
+              "newtab",
+              "status=1,fullscreen=1"
+            )}
             className="hover:text-amber-300 hover:scale-125 transition-all"
           >
             Resume
