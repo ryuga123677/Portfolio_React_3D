@@ -23,7 +23,13 @@ export const StarBackground = ({ heightClass = "h-full" }) => {
     resizeCanvas();
 
     const stars = [];
-    const numStars = 800;
+    let numStars;
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    if (isMobile) {
+      numStars = 100;
+    } else {
+      numStars = 600;
+    }
 
     for (let i = 0; i < numStars; i++) {
       stars.push({
