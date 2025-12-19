@@ -121,7 +121,16 @@ const Portfolio = () => {
 
       // Create stars randomly distributed across the canvas
       const stars = [];
-      const numStars = 600;
+      // INSERT_YOUR_CODE
+      // Detect if the device is mobile to reduce star count for performance
+      let numStars;
+      const isMobile = /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+      if (isMobile) {
+        numStars = 200;
+      } else {
+        numStars = 600;
+      }
+      
 
       for (let i = 0; i < numStars; i++) {
         stars.push({
