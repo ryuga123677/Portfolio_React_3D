@@ -121,7 +121,7 @@ const Portfolio = () => {
 
       // Create stars randomly distributed across the canvas
       const stars = [];
-      const numStars = 800;
+      const numStars = 600;
 
       for (let i = 0; i < numStars; i++) {
         stars.push({
