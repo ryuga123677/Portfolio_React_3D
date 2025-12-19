@@ -11,9 +11,10 @@ const ChangingText = () => {
       setIsBlurred(true);
       
       setTimeout(() => {
+        setIsBlurred(true);
         setCurrentText((prevText) => (prevText + 1) % texts.length); 
         setIsBlurred(false); 
-      }, 600);
+      }, 700);
     }, 3000); 
 
     return () => clearInterval(interval);
@@ -22,7 +23,7 @@ const ChangingText = () => {
   return (
     <div
       className={`text-lg text-white bg-transparent transition-all duration-500 ${
-        isBlurred ? "blur-sm opacity-20" : "blur-0 opacity-100"
+        isBlurred ? "blur-sm opacity-50" : "blur-0 opacity-100"
       }`}
     >
       {texts[currentText]}

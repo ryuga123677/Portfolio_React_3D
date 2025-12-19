@@ -92,11 +92,373 @@ const Portfolio = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [anim, setanim] = useState(false);
   const [projectview, setproject] = useState(false);
+  const [shouldLoadScene, setShouldLoadScene] = useState(false);
+  const [sceneType, setSceneType] = useState('spaceTravel'); // 'spaceTravel' or 'portfolio'
   const scrollContainerRef = useRef(null);
+  const galaxyCanvasRef = useRef(null);
+
+  // Blinking stars animation with transition effect
+  useEffect(() => {
+    if (shouldLoadScene) return; // Don't run if scene is loaded
+
+    // Use requestAnimationFrame to ensure canvas is ready
+    const initCanvas = () => {
+      const canvas = galaxyCanvasRef.current;
+      if (!canvas) {
+        requestAnimationFrame(initCanvas);
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // Set canvas size to match container
+      const container = canvas.parentElement;
+      const width = container?.offsetWidth || window.innerWidth;
+      const height = container?.offsetHeight || window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+
+      // Create stars randomly distributed across the canvas
+      const stars = [];
+      const numStars = 800;
+
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: Math.random() * 2 + 0.5,
+          baseOpacity: Math.random() * 0.8 + 0.2,
+          blinkSpeed: Math.random() * 2 + 0.5, // Faster blink speed (0.5 to 2.5)
+          blinkPhase: Math.random() * Math.PI * 2, // Random starting phase
+          brightness: Math.random() * 0.5 + 0.5
+        });
+      }
+
+      let animationTime = 0;
+      let animationId;
+      let lastTime = performance.now();
+
+      const animate = (currentTime) => {
+        if (shouldLoadScene) {
+          if (animationId) cancelAnimationFrame(animationId);
+          return;
+        }
+
+        // Handle resize
+        const currentWidth = canvas.parentElement?.offsetWidth || window.innerWidth;
+        const currentHeight = canvas.parentElement?.offsetHeight || window.innerHeight;
+        if (canvas.width !== currentWidth || canvas.height !== currentHeight) {
+          canvas.width = currentWidth;
+          canvas.height = currentHeight;
+          // Redistribute stars on resize
+          stars.forEach(star => {
+            star.x = Math.random() * currentWidth;
+            star.y = Math.random() * currentHeight;
+          });
+        }
+
+        // Update animation time using performance.now() for smooth animation
+        const now = performance.now();
+        const deltaTime = (now - lastTime) / 1000; // Convert to seconds
+        lastTime = now;
+        animationTime += deltaTime;
+
+        // Clear canvas with dark blue-black background
+        ctx.fillStyle = '#000011';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw blinking stars
+        stars.forEach(star => {
+          // Calculate blinking brightness using sine wave
+          const blinkValue = (Math.sin(animationTime * star.blinkSpeed + star.blinkPhase) + 1) / 2;
+          // Blink between 20% and 100% brightness for more noticeable effect
+          const currentBrightness = 0.2 + (blinkValue * 0.8);
+          const opacity = star.baseOpacity * currentBrightness * star.brightness;
+
+          // Draw star
+          ctx.globalAlpha = opacity;
+          ctx.fillStyle = '#ffffff';
+          ctx.shadowBlur = star.size > 1.5 ? 3 : 1;
+          ctx.shadowColor = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        ctx.globalAlpha = 1;
+        ctx.shadowBlur = 0;
+
+        animationId = requestAnimationFrame(animate);
+      };
+
+      animate();
+
+      // Handle resize
+      const handleResize = () => {
+        const newWidth = canvas.parentElement?.offsetWidth || window.innerWidth;
+        const newHeight = canvas.parentElement?.offsetHeight || window.innerHeight;
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        // Redistribute stars on resize
+        stars.forEach(star => {
+          star.x = Math.random() * newWidth;
+          star.y = Math.random() * newHeight;
+        });
+      };
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        if (animationId) cancelAnimationFrame(animationId);
+        window.removeEventListener('resize', handleResize);
+      };
+    };
+
+    initCanvas();
+  }, [shouldLoadScene]);
+
+  // Space Travel Scene Setup
+  const setupSpaceTravelScene = (scene, onAnimationComplete) => {
+    const engine = scene.getEngine();
+    const canvas = scene.getEngine().getRenderingCanvas();
+
+    // Clear default camera
+    scene.activeCamera?.dispose();
+
+    // Create free camera for space travel
+    const camera = new BABYLON.FreeCamera(
+      "camera",
+      new BABYLON.Vector3(0, 0, -10),
+      scene
+    );
+    camera.setTarget(BABYLON.Vector3.Zero());
+    camera.attachControl(canvas, false); // Don't allow manual control during animation
+
+    // Set black background
+    scene.clearColor = new BABYLON.Color3(0, 0, 0);
+    scene.activeCamera = camera;
+
+    // ==============================
+    // STAR PARTICLE SYSTEM
+    // ==============================
+    const stars = new BABYLON.ParticleSystem("stars", 10000, scene);
+
+    stars.particleTexture = new BABYLON.Texture(
+      "https://playground.babylonjs.com/textures/flare.png",
+      scene
+    );
+
+    stars.minEmitBox = new BABYLON.Vector3(-90, -90, 50);
+    stars.maxEmitBox = new BABYLON.Vector3(90, 90, 320);
+
+    stars.color1 = new BABYLON.Color4(1, 1, 1, 1);
+    stars.color2 = new BABYLON.Color4(0.85, 0.9, 1, 1);
+
+    stars.emitRate = 5500;
+    stars.minLifeTime = 6;
+    stars.maxLifeTime = 8;
+    stars.minSize = 0.15;
+    stars.maxSize = 0.3;
+    stars.blendMode = BABYLON.ParticleSystem.BLENDMODE_ADD;
+
+    // ==============================
+    // GLOW LAYER
+    // ==============================
+    const glow = new BABYLON.GlowLayer("glow", scene);
+    glow.intensity = 1.5;
+
+    // ==============================
+    // CENTER ENERGY CORE
+    // ==============================
+    const core = BABYLON.MeshBuilder.CreateDisc(
+      "core",
+      { radius: 0.5, tessellation: 64 },
+      scene
+    );
+    core.position.set(0, 0, 0);
+    core.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+    core.setEnabled(false);
+
+    const coreMat = new BABYLON.StandardMaterial("coreMat", scene);
+    coreMat.emissiveColor = new BABYLON.Color3(0.9, 0.95, 1);
+    coreMat.disableLighting = true;
+    core.material = coreMat;
+
+    // ==============================
+    // WARP PARAMETERS
+    // ==============================
+    const SPEED = 230;
+    const STREAK_START = 90;   // where streak begins
+    const STREAK_END = 30;     // full streak near camera
+    const MAX_STREAK = 80;
+    const CENTER_HOLE = 8; // Increased exclusion zone to prevent center streaks
+    let coreSize = 0;
+    const CORE_GROWTH_RATE = 2.5; // units per second
+    const CORE_MAX_SIZE = 800;
+    let elapsed = 0;
+    let coreVisible = false;
+    const SLOW_RATE = 2;        // initial normal speed
+    const FAST_RATE = 18;       // very fast later
+    const SLOW_PHASE_LIMIT = 3;
+
+    function pushOutOfCenter(p) {
+      const d = Math.sqrt(p.position.x ** 2 + p.position.y ** 2);
+      if (d < CENTER_HOLE) {
+        const a = Math.random() * Math.PI * 2;
+        // Push to edge of exclusion zone with some randomness
+        const pushDistance = CENTER_HOLE + Math.random() * 5;
+        p.position.x = Math.cos(a) * pushDistance;
+        p.position.y = Math.sin(a) * pushDistance;
+      }
+    }
+
+    stars.updateFunction = function (particles) {
+      const dt = engine.getDeltaTime() * 0.001;
+      elapsed += dt;
+
+      // ===== CORE APPEAR =====
+      if (elapsed > 6 && !coreVisible) {
+        core.setEnabled(true);
+        core.scaling.setAll(0.01);
+        coreVisible = true;
+      }
+// ===== CONSTANT RATE GROWTH =====
+if (coreVisible && coreSize < CORE_MAX_SIZE) {
+  coreSize += CORE_GROWTH_RATE * dt;
+  coreSize = Math.min(coreSize, CORE_MAX_SIZE);
+  core.scaling.setAll(coreSize);
+}
+if (coreVisible && coreSize < CORE_MAX_SIZE) {
+  let growthRate =
+      coreSize < SLOW_PHASE_LIMIT ? SLOW_RATE : FAST_RATE;
+
+  coreSize += growthRate * dt;
+  coreSize = Math.min(coreSize, CORE_MAX_SIZE);
+  core.scaling.setAll(coreSize);
+}
+
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        // Move star
+        p.position.z -= SPEED * dt;
+
+        // Continuously push particles away from center (not just on loop)
+        pushOutOfCenter(p);
+
+        // Direction
+        p.angle = Math.atan2(p.position.y, p.position.x);
+
+        // ==============================
+        // PROGRESSIVE STREAK GROWTH
+        // ==============================
+        // Only create streaks if particle is outside center exclusion zone
+        const distFromCenter = Math.sqrt(p.position.x ** 2 + p.position.y ** 2);
+        if (distFromCenter > CENTER_HOLE && p.position.z < STREAK_START) {
+          const t = BABYLON.Scalar.Clamp(
+            (STREAK_START - p.position.z) / (STREAK_START - STREAK_END),
+            0,
+            1
+          );
+
+          // Apply easing for slow, gradual growth (ease-in cubic for smooth slow start)
+          // Using t^3 makes it start very slowly and gradually speed up
+          const easedT = t * t * t; // Cubic ease-in for slow growth
+          // Alternative: use t^2 for quadratic (slightly faster) or Math.pow(t, 2.5) for in-between
+
+          // Length grows from 0 → MAX with slow easing
+          p.scale.x = easedT * MAX_STREAK;
+          p.scale.y = BABYLON.Scalar.Lerp(1, 0.25, easedT);
+        } else {
+          // Dot (or hidden if too close to center)
+          p.scale.x = 0;
+          p.scale.y = distFromCenter > CENTER_HOLE ? 1 : 0; // Hide particles in center
+        }
+
+        // Loop
+        if (p.position.z < -20) {
+          p.position.z = 320;
+          p.position.x = BABYLON.Scalar.RandomRange(-90, 90);
+          p.position.y = BABYLON.Scalar.RandomRange(-90, 90);
+          pushOutOfCenter(p);
+          p.scale.x = 0;
+          p.scale.y = 1;
+        }
+      }
+    };
+
+    stars.start();
+
+    // Handle animation completion
+    const travelDuration = 9000; // 8 seconds in milliseconds
+    const startTime = Date.now();
+
+    const beforeRenderObserver = scene.onBeforeRenderObservable.add(() => {
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - startTime;
+
+      if (elapsedTime >= travelDuration) {
+        // Animation complete - clean up and transition
+        scene.onBeforeRenderObservable.remove(beforeRenderObserver);
+        stars.dispose();
+        glow.dispose();
+        core.dispose();
+        coreMat.dispose();
+        camera.dispose();
+        if (onAnimationComplete) {
+          onAnimationComplete();
+        }
+      }
+    });
+  };
+
   const onSceneReady = async (scene) => {
     const engine = scene.getEngine();
     const canvas = scene.getEngine().getRenderingCanvas();
-    const camera = new BABYLON.ArcRotateCamera(
+   // scene.debugLayer.show();
+    // Check scene type and load appropriate scene
+    if (sceneType === 'spaceTravel') {
+      setupSpaceTravelScene(scene, () => {
+        // After space travel animation completes, switch to portfolio scene
+        setTimeout(() => {
+          setSceneType('portfolio');
+        }, 600); // Small delay for smooth transition
+      });
+      return;
+    }
+
+    // Portfolio scene setup (existing code)
+  //  const {starTexture}=setupSimpleStarfield(scene);
+    scene.clearColor = new BABYLON.Color3(0, 0, 0);
+
+    // Intermediate position the camera should move to
+    const intermediatePosition = new BABYLON.Vector3(-9.458373784231779, 5.394242042078482, -27.77824032671519);
+    const intermediatePosition2 = new BABYLON.Vector3(-7.458373784231779, 8.394242042078482, -27.77824032671519);
+    // Target to look at
+    const finalTarget = new BABYLON.Vector3(1, 4, -30);
+
+    // Create FreeCamera
+    const camera = new BABYLON.FreeCamera(
+      "camera",
+      intermediatePosition.clone(),
+      scene
+    );
+   
+
+    // Set camera to look at the final target initially
+    camera.setTarget(finalTarget);
+    
+    // Attach camera controls (mouse/keyboard)
+    //camera.attachControl(canvas, true);
+    
+    // Set camera movement speed
+    camera.speed = 2;
+    camera.angularSensibility = 2000;
+
+    // Animate the camera position directly
+     // Add an ArcRotateCamera
+     var arcCamera = new BABYLON.ArcRotateCamera(
       "camera",
       0,
       1.5,
@@ -104,11 +466,31 @@ const Portfolio = () => {
       new BABYLON.Vector3(1, 8.5, -38),
       scene
     );
-    camera.attachControl(canvas, true);
-    camera.radius = 5;
+  
+      BABYLON.Animation.CreateAndStartAnimation(
+        "moveAnimation2",
+        camera,
+        "position",
+        30,
+        120, // 4 seconds at 30fps
+        intermediatePosition,
+        intermediatePosition2,
+        0
+      ).onAnimationEndObservable.add(() => {
+        camera.dispose();
+        arcCamera.radius = 5;
+        scene.activeCamera = arcCamera;
+        scene.activeCamera.attachControl(canvas, true);
+        scene.activeCamera.lowerRadiusLimit = 0;
+        scene.activeCamera.upperRadiusLimit = 8;
+    });
+   
+
+
+ 
+   
     if (isrunning) {
       engine.runRenderLoop(() => {
-        camera.alpha -= 0.001;
         scene.render();
       });
     }
@@ -156,12 +538,59 @@ const Portfolio = () => {
           // }
         }
       );
+      const drawer =  scene.getMeshByName("Drawer_primitive0");
+      const drawerbase=scene.getMeshByName("Drawer_primitive1");
+      
+      if(drawer)
+      {
+        
+      BABYLON.Animation.CreateAndStartAnimation(
+        "moveDrawerZ",
+        drawer,
+        "position.z",
+        30,
+        60,
+        drawer.position.z,
+        drawer.position.z + 0.75,
+        0
+      );
+      BABYLON.Animation.CreateAndStartAnimation(
+        "moveDrawerZ",
+        drawerbase,
+        "position.z",
+        30,
+        60,
+        drawer.position.z,
+        drawer.position.z + 0.75,
+        0
+      );
+      setTimeout(function(){ BABYLON.Animation.CreateAndStartAnimation(
+        "moveDrawerZ",
+        drawer,
+        "position.z",
+        30,
+        60,
+        drawer.position.z,
+        drawer.position.z - 0.75,
+        0
+      );
+      BABYLON.Animation.CreateAndStartAnimation(
+        "moveDrawerZ",
+        drawerbase,
+        "position.z",
+        30,
+        60,
+        drawer.position.z,
+        drawer.position.z - 0.75,
+        0
+      );},7000)
+      }
       scene.onPointerDown = function castRay() {
         const ray = scene.createPickingRay(
           scene.pointerX,
           scene.pointerY,
           BABYLON.Matrix.Identity(),
-          camera
+          scene.activeCamera
         );
         const hit = scene.pickWithRay(ray);
         if (hit.pickedMesh.name == "car" && hit.pickedMesh) {
@@ -591,9 +1020,10 @@ const Portfolio = () => {
             "Open Project"
           );
         }
-        if (hit.pickedMesh.name == "chair" && hit.pickedMesh) {
-          var chair = scene.getMeshByName("chair");
-          var chairpipe = scene.getMeshByName("chairpipe");
+        console.log(hit.pickedMesh.name)
+        if (hit.pickedMesh.name == "Chair_primitive0" && hit.pickedMesh) {
+          var chair = scene.getMeshByName("Chair_primitive0");
+          var chairpipe = scene.getMeshByName("Chair_primitive1");
           var chairbase = scene.getMeshByName("chairbase");
           if (chair.position.x < 9.36) {
             BABYLON.Animation.CreateAndStartAnimation(
@@ -665,7 +1095,7 @@ const Portfolio = () => {
           hit.pickedMesh &&
           check == false
         ) {
-          console.log("yesss");
+         
           // setCheck(true);
 
           var ANote0VideoMat = new BABYLON.StandardMaterial("m", scene);
@@ -679,9 +1109,20 @@ const Portfolio = () => {
           ANote0VideoMat.emissiveColor = BABYLON.Color3.Black();
           ANote0Video.material = ANote0VideoMat;
 
-          camera.target = ANote0Video;
+          scene.activeCamera.target = ANote0Video;
+          const DEG120 = BABYLON.Tools.ToRadians(160);
+          const DEG60=BABYLON.Tools.ToRadians(60);
+          // ALPHA (horizontal rotation)
+scene.activeCamera.lowerAlphaLimit = -DEG60;
+scene.activeCamera.upperAlphaLimit = DEG60;
 
-          pointLight.intensity = 1;
+// BETA (vertical rotation)
+// beta must stay between (0, π)
+scene.activeCamera.lowerBetaLimit = BABYLON.Tools.ToRadians(10);   // avoid flippingscene.activeCameraa.upperBetaLimit = DEG120;
+scene.activeCamera.upperBetaLimit = DEG120;
+
+
+          pointLight.intensity = 2;
 
           ANote0VideoVidTex.video.play();
 
@@ -700,7 +1141,8 @@ const Portfolio = () => {
             ANote0VideoVidTex.video.pause();
             guiCanvas.dispose();
             check = false;
-            camera.target = new BABYLON.Vector3(1, 8.5, -38);
+            scene.activeCamera.target = new BABYLON.Vector3(1, 8.5, -38);
+            scene.activeCamera.alpha=0;
 
             pointLight.intensity = 800;
           });
@@ -773,8 +1215,7 @@ const Portfolio = () => {
     //   embedMode: true,
     // });
 
-    camera.lowerRadiusLimit = 0;
-    camera.upperRadiusLimit = 8;
+
 
     const pointLight = new BABYLON.PointLight(
       "pointLight",
@@ -874,38 +1315,63 @@ const Portfolio = () => {
   const handleclick = () => {
     setisRunning(false);
     setIsVisible(false);
+    setSceneType('spaceTravel'); // Start with space travel scene
+    setShouldLoadScene(true);
   };
   const handleproject = () => {
     setanim(true);
+
+    const handleScroll = () => {
+      // Use setTimeout to ensure DOM has updated with Projects component
+      setTimeout(() => {
+        window.scrollTo({
+          top: 1000, 
+          behavior: "smooth", 
+        });
+      }, 100);
+    };
 
     setTimeout(function(){
       setanim(false);
       setproject(true);
       handleScroll();
-
     },8000);
-    const handleScroll = () => {
-   
-      window.scrollTo({
-        top: 1000, 
-        behavior: "smooth", 
-      });
-    };
   };
   return (
     <>
-      <div style={{backgroundColor: "#C59B49"}} className="relative w-full h-full ">
+      <div className="relative w-full" style={{ height: '91vh', minHeight: '91vh', backgroundColor: '#000011' }}>
+        {!shouldLoadScene && (
+          <canvas
+            ref={galaxyCanvasRef}
+            className="absolute inset-0 w-full"
+            style={{ backgroundColor: '#000011', width: '100%', height: '100%' }}
+          />
+        )}
     
-        <BabylonScene
-          antialias
-          onSceneReady={onSceneReady}
-          onRender={onRender}
-          id="babylon-canvas"
-          className="h-[91vh] w-full flex justify-center"
-        />
+        {shouldLoadScene && (
+          <BabylonScene
+            key={sceneType} // Force remount when scene type changes
+            antialias
+            onSceneReady={onSceneReady}
+            onRender={onRender}
+            id="babylon-canvas"
+            className="h-[91vh] w-full flex justify-center"
+          />
+        )}
       
         {isVisible && (
-          <Buttons onChange={handleclick} onprojectclick={handleproject} />
+          <>
+            {!shouldLoadScene ? (
+              <div className="absolute inset-0 flex items-center justify-center z-10">
+                <div className="text-xl space-x-2">
+                  <button className='rounded bg-white hover:scale-125 transition-all border-2 p-2 m-4 text-black' onClick={handleclick}>Dive into Scene</button>
+                  <button onClick={handleproject} className='rounded hover:scale-125 transition-all p-2 m-4 bg-transparent border-2 border-white text-white'>Open Projects</button>
+                </div>
+              </div>
+            ) : (
+              <Buttons onChange={handleclick} onprojectclick={handleproject} />
+            )}
+          </>
         )}
         
         {anim && !projectview && <Card1/>}

@@ -5,6 +5,7 @@ import ghost from "../assets/project-images/ghost.png";
 import snake from "../assets/project-images/snake.png";
 import hospital from "../assets/project-images/hospital.png";
 import mouse from "../assets/project-images/mouse.jpg";
+import { StarBackground } from "./StarBackground";
 export const Projects = () => {
   const handleclick = (url) => {
     window.open(url);
@@ -13,17 +14,19 @@ export const Projects = () => {
   return (
     <>
     <div className="">
+   
       <div
-        className="flex bg-[#560a0a] justify-center text-white text-5xl font-bold p-5"
+        className="flex bg-black justify-center text-white text-5xl font-bold p-5"
         
       >
         Projects
       </div>
       <div
        
-        className="flex bg-[repeating-linear-gradient(45deg,#8d3131_0,#8d3131_17px,transparent_0,transparent_50%)] bg-[#640f0f] bg-[length:50px_50px] flex-wrap justify-evenly gap-20 p-5 text-white"
+        className="flex bg-[linear-gradient(135deg,_rgba(255,255,255,0.15)_25%,_transparent_25%),_linear-gradient(225deg,_rgba(255,255,255,0.15)_25%,_transparent_25%),_linear-gradient(45deg,_rgba(255,255,255,0.15)_25%,_transparent_25%),_linear-gradient(315deg,_rgba(255,255,255,0.15)_25%,_transparent_25%)] bg-black bg-[length:40px_40px] flex-wrap justify-evenly gap-20 p-5 text-white"
       >
         {/* Card 1 */}
+       
         <button
           onClick={() =>
             handleclick("https://github.com/ryuga123677/Portfolio_React_3D")

@@ -1,20 +1,21 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-export const Skills = ({ onchange }) => {
-  return (
-    <>
-      <div className="flex justify-end bg-[#853824] ">
-      
-        <button
-          onClick={() => onchange(false)}
-          className="hover:text-amber-500 bg-[#853824] text-white"
-        >
-          <FaTimes size={25} />
-        </button>
-      </div>
+import { useNavigate } from "react-router-dom";
+import { StarBackground } from "./StarBackground";
 
-      <div className="flex bg-[#853824] lg:min-h-screen justify-center sm:h-max text-white text-xl">
-        <div className="flex flex-col gap-2">
+export const Skills = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="relative w-full min-h-[91vh] text-white text-xl">
+      {/* Star background */}
+      <StarBackground heightClass="h-full" />
+
+      {/* Foreground content */}
+      <div className="absolute inset-0 flex flex-col justify-center items-center">
+
+        <div className="flex justify-center items-start mt-4 px-4">
+          <div className="flex flex-col gap-2w-full p-4 max-w-md bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100 ">
           <h3 align="left">Connect with me:</h3>
           <p align="left">
             <a
@@ -333,7 +334,7 @@ export const Skills = ({ onchange }) => {
               />{" "}
             </a>
           </div>
-          <p>3D Skills-</p> 
+          <p>3D Skills-</p>
           <div className="flex m-2 gap-2">
             <a href="https://www.blender.org/" target="_blank" rel="noreferrer">
               {" "}
@@ -352,7 +353,7 @@ export const Skills = ({ onchange }) => {
               <img
                 src="https://seeklogo.com/images/B/babylon-js-logo-6AC6775AA0-seeklogo.com.png"
                 alt="babylonjs"
-                 height="35"
+                height="35"
                 width="40"
               />
             </a>{" "}
@@ -361,7 +362,7 @@ export const Skills = ({ onchange }) => {
               <img
                 src="https://preview.redd.it/tu3gt6ysfxq71.png?auto=webp&s=10ab55d9dc09e7ed6ea59bd5916800a5272d5969"
                 alt="unity"
-               height="40"
+                height="40"
                 width="40"
               />{" "}
             </a>
@@ -380,13 +381,14 @@ export const Skills = ({ onchange }) => {
               <img
                 src="https://www.finsmes.com/wp-content/uploads/2021/11/render.jpg"
                 alt="render"
-                 height="40"
+                height="40"
                 width="40"
               />
             </a>
           </div>
         </div>
       </div>
-    </>
+      </div>
+    </div>
   );
 };
