@@ -512,7 +512,7 @@ stars.stretchMinimum = 0.15;
         scene.render();
       });
     }
-
+arcCamera.alpha=-0.85;
 
 
     var check = false;
