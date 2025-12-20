@@ -262,140 +262,149 @@ const Portfolio = () => {
 
     stars.color1 = new BABYLON.Color4(1, 1, 1, 1);
     stars.color2 = new BABYLON.Color4(0.85, 0.9, 1, 1);
-
+    
+    stars.stretchMode = BABYLON.ParticleSystem.STRETCHMODE_VELOCITY;
+stars.stretchSpeedScale = 0.9;
+stars.stretchMinimum = 0.15;
     stars.emitRate = 5500;
     stars.minLifeTime = 6;
     stars.maxLifeTime = 8;
     stars.minSize = 0.15;
     stars.maxSize = 0.3;
     stars.blendMode = BABYLON.ParticleSystem.BLENDMODE_ADD;
-
-    // ==============================
-    // GLOW LAYER
-    // ==============================
-    const glow = new BABYLON.GlowLayer("glow", scene);
-    glow.intensity = 1.5;
-
-    // ==============================
-    // CENTER ENERGY CORE
-    // ==============================
-    const core = BABYLON.MeshBuilder.CreateDisc(
-      "core",
-      { radius: 0.5, tessellation: 64 },
-      scene
-    );
-    core.position.set(0, 0, 0);
-    core.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
-    core.setEnabled(false);
-
-    const coreMat = new BABYLON.StandardMaterial("coreMat", scene);
-    coreMat.emissiveColor = new BABYLON.Color3(0.9, 0.95, 1);
-    coreMat.disableLighting = true;
-    core.material = coreMat;
-
-    // ==============================
-    // WARP PARAMETERS
-    // ==============================
-    const SPEED = 230;
-    const STREAK_START = 90;   // where streak begins
-    const STREAK_END = 30;     // full streak near camera
-    const MAX_STREAK = 80;
-    const CENTER_HOLE = 8; // Increased exclusion zone to prevent center streaks
-    let coreSize = 0;
-    const CORE_GROWTH_RATE = 2.5; // units per second
-    const CORE_MAX_SIZE = 800;
-    let elapsed = 0;
-    let coreVisible = false;
-    const SLOW_RATE = 2;        // initial normal speed
-    const FAST_RATE = 18;       // very fast later
-    const SLOW_PHASE_LIMIT = 3;
-
-    function pushOutOfCenter(p) {
-      const d = Math.sqrt(p.position.x ** 2 + p.position.y ** 2);
-      if (d < CENTER_HOLE) {
-        const a = Math.random() * Math.PI * 2;
-        // Push to edge of exclusion zone with some randomness
-        const pushDistance = CENTER_HOLE + Math.random() * 5;
-        p.position.x = Math.cos(a) * pushDistance;
-        p.position.y = Math.sin(a) * pushDistance;
-      }
-    }
-
-    stars.updateFunction = function (particles) {
-      const dt = engine.getDeltaTime() * 0.001;
-      elapsed += dt;
-
-      // ===== CORE APPEAR =====
-      if (elapsed > 6 && !coreVisible) {
-        core.setEnabled(true);
-        core.scaling.setAll(0.01);
-        coreVisible = true;
-      }
-// ===== CONSTANT RATE GROWTH =====
-if (coreVisible && coreSize < CORE_MAX_SIZE) {
-  coreSize += CORE_GROWTH_RATE * dt;
-  coreSize = Math.min(coreSize, CORE_MAX_SIZE);
-  core.scaling.setAll(coreSize);
-}
-if (coreVisible && coreSize < CORE_MAX_SIZE) {
-  let growthRate =
-      coreSize < SLOW_PHASE_LIMIT ? SLOW_RATE : FAST_RATE;
-
-  coreSize += growthRate * dt;
-  coreSize = Math.min(coreSize, CORE_MAX_SIZE);
-  core.scaling.setAll(coreSize);
-}
-
-
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-
-        // Move star
-        p.position.z -= SPEED * dt;
-
-        // Continuously push particles away from center (not just on loop)
-        pushOutOfCenter(p);
-
-        // Direction
-        p.angle = Math.atan2(p.position.y, p.position.x);
-
-        // ==============================
-        // PROGRESSIVE STREAK GROWTH
-        // ==============================
-        // Only create streaks if particle is outside center exclusion zone
-        const distFromCenter = Math.sqrt(p.position.x ** 2 + p.position.y ** 2);
-        if (distFromCenter > CENTER_HOLE && p.position.z < STREAK_START) {
-          const t = BABYLON.Scalar.Clamp(
-            (STREAK_START - p.position.z) / (STREAK_START - STREAK_END),
-            0,
-            1
-          );
-
-          // Apply easing for slow, gradual growth (ease-in cubic for smooth slow start)
-          // Using t^3 makes it start very slowly and gradually speed up
-          const easedT = t * t * t; // Cubic ease-in for slow growth
-          // Alternative: use t^2 for quadratic (slightly faster) or Math.pow(t, 2.5) for in-between
-
-          // Length grows from 0 → MAX with slow easing
-          p.scale.x = easedT * MAX_STREAK;
-          p.scale.y = BABYLON.Scalar.Lerp(1, 0.25, easedT);
-        } else {
-          // Dot (or hidden if too close to center)
-          p.scale.x = 0;
-          p.scale.y = distFromCenter > CENTER_HOLE ? 1 : 0; // Hide particles in center
+          // GLOW LAYER
+      // ==============================
+      const glow = new BABYLON.GlowLayer("glow", scene);
+      glow.intensity = 1.5;
+      // ==============================
+      // CENTER ENERGY CORE
+      // ==============================
+      const core = BABYLON.MeshBuilder.CreateDisc(
+        "core",
+        { radius: 0.5, tessellation: 64 },
+        scene
+      );
+      core.position.set(0, 0, 0);
+      core.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+      core.setEnabled(false);
+  
+      const coreMat = new BABYLON.StandardMaterial("coreMat", scene);
+      coreMat.emissiveColor = new BABYLON.Color3(0.9, 0.95, 1);
+      coreMat.disableLighting = true;
+      core.material = coreMat;
+  
+      // ==============================
+      // WARP PARAMETERS
+      // ==============================
+      const initialSpeed=0;
+      const SPEED = 200;
+      const STREAK_START = 90;   // where streak begins
+      const STREAK_END = 30;     // full streak near camera
+      const MAX_STREAK = 60;
+      const CENTER_HOLE = 8; // Increased exclusion zone to prevent center streaks
+      let coreSize = 0;
+      const CORE_GROWTH_RATE = 2.5; // units per second
+      const CORE_MAX_SIZE = 800;
+      let elapsed = 0;
+      let coreVisible = false;
+      const SLOW_RATE = 2;        // initial normal speed
+      const FAST_RATE = 18;       // very fast later
+      const SLOW_PHASE_LIMIT = 3;
+  
+      function pushOutOfCenter(p) {
+        const d = Math.sqrt(p.position.x ** 2 + p.position.y ** 2);
+        if (d < CENTER_HOLE) {
+          const a = Math.random() * Math.PI * 2;
+          // Push to edge of exclusion zone with some randomness
+          const pushDistance = CENTER_HOLE + Math.random() * 5;
+          p.position.x = Math.cos(a) * pushDistance;
+          p.position.y = Math.sin(a) * pushDistance;
         }
-
-        // Loop
-        if (p.position.z < -20) {
-          p.position.z = 320;
-          p.position.x = BABYLON.Scalar.RandomRange(-90, 90);
-          p.position.y = BABYLON.Scalar.RandomRange(-90, 90);
+      }
+  
+      stars.updateFunction = function (particles) {
+        const dt = engine.getDeltaTime() * 0.001;
+        elapsed += dt;
+  
+        // ===== CORE APPEAR =====
+        if (elapsed > 6 && !coreVisible) {
+          core.setEnabled(true);
+          core.scaling.setAll(0.01);
+          coreVisible = true;
+        }
+  // ===== CONSTANT RATE GROWTH =====
+  if (coreVisible && coreSize < CORE_MAX_SIZE) {
+    coreSize += CORE_GROWTH_RATE * dt;
+    coreSize = Math.min(coreSize, CORE_MAX_SIZE);
+    core.scaling.setAll(coreSize);
+  }
+  if (coreVisible && coreSize < CORE_MAX_SIZE) {
+    let growthRate =
+        coreSize < SLOW_PHASE_LIMIT ? SLOW_RATE : FAST_RATE;
+  
+    coreSize += growthRate * dt;
+    coreSize = Math.min(coreSize, CORE_MAX_SIZE);
+    core.scaling.setAll(coreSize);
+  }
+  
+  
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+  
+          // Move star
+          
+          let speed;
+          if (elapsed < 2) {
+            // Linearly ramp up from initialSpeed to SPEED over 2 seconds
+            speed = initialSpeed + (SPEED - 50 - initialSpeed) * (elapsed / 2);
+          } else {
+            speed = SPEED;
+          }
+          p.position.z -= speed * dt;
+  
+          // Continuously push particles away from center (not just on loop)
           pushOutOfCenter(p);
-          p.scale.x = 0;
-          p.scale.y = 1;
+  
+          // Direction
+          p.angle = Math.atan2(p.position.y, p.position.x);
+  
+          // ==============================
+          // PROGRESSIVE STREAK GROWTH
+          // ==============================
+          // Only create streaks if particle is outside center exclusion zone
+          const distFromCenter = Math.sqrt(p.position.x ** 2 + p.position.y ** 2);
+          if (distFromCenter > CENTER_HOLE && p.position.z < STREAK_START) {
+            const t = BABYLON.Scalar.Clamp(
+              (STREAK_START - p.position.z) / (STREAK_START - STREAK_END),
+              0,
+              1
+            );
+  
+            // Apply easing for slow, gradual growth (ease-in cubic for smooth slow start)
+            // Using t^3 makes it start very slowly and gradually speed up
+            const easedT = t * t * t; // Cubic ease-in for slow growth
+            // Alternative: use t^2 for quadratic (slightly faster) or Math.pow(t, 2.5) for in-between
+  
+            // Length grows from 0 → MAX with slow easing
+            p.scale.x = easedT * MAX_STREAK;
+            p.scale.y = BABYLON.Scalar.Lerp(1, 0.25, easedT);
+          } else {
+            // Dot (or hidden if too close to center)
+            p.scale.x = 0;
+            p.scale.y = distFromCenter > CENTER_HOLE ? 1 : 0; // Hide particles in center
+          }
+  
+          // Loop
+          if (p.position.z < -20) {
+            p.position.z = 320;
+            p.position.x = BABYLON.Scalar.RandomRange(-90, 90);
+            p.position.y = BABYLON.Scalar.RandomRange(-90, 90);
+            pushOutOfCenter(p);
+            p.scale.x = 0;
+            p.scale.y = 1;
+          }
         }
-      }
-    };
+      };
 
     stars.start();
 
@@ -503,6 +512,8 @@ if (coreVisible && coreSize < CORE_MAX_SIZE) {
         scene.render();
       });
     }
+
+
 
     var check = false;
     let lampon = false;
